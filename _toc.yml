@@ -1,0 +1,14 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: intro
+chapters:
+- file: Requirements
+- file: Data
+- file: Predictors_Response
+- file: Imbalance_problem
+- file: Inner_eval
+- file: Outer_eval
+- file: Predicting_new_data
+- file: Conclusions

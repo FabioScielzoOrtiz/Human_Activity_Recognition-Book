@@ -1,0 +1,966 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Predicting new data &#8212; Human Activity Recognition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Predicting_new_data';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Conclusions" href="Conclusions.html" />
+    <link rel="prev" title="Imbalance classification problem" href="Imbalance_problem.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Human Activity Recognition - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Human Activity Recognition - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Human Activity Recognition
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Requirements.html"><strong>Requirements</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Data.html"><strong>Data</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Predictors_Response.html"><strong>Getting the response and predictors</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Imbalance_problem.html"><strong>Imbalance classification problem</strong></a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>Predicting new data</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Conclusions.html"><strong>Conclusions</strong></a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FPredicting_new_data.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Predicting_new_data.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Predicting new data</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="predicting-new-data">
+<h1><strong>Predicting new data</strong><a class="headerlink" href="#predicting-new-data" title="Link to this heading">#</a></h1>
+<p>In this section we are going to recognize the activity of two new individuals from which we have data regarding the signals, in the same conditions as before, but we haven’t the activity classes.</p>
+<p>The point is to use the saved pre-trained pipeline to predict the activity of those new individuals based on their data about the signals.</p>
+<p>First of all we load the pre-trained pipeline.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load the pipeline from file</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:\Users\fscielzo\Documents\DataScience-GitHub\Human-Activity-Recognition\results\final_pipeline.pkl&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+    <span class="n">loaded_pipeline</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we load the new data, process it a bit just to put it in a suitable format to be used by the pipeline, and, finally, we predict the activities for those signals using the pre-trained pipeline.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">HAR_new_data</span> <span class="o">=</span> <span class="n">HAR_database</span><span class="p">[</span><span class="s1">&#39;database_test&#39;</span><span class="p">]</span>
+<span class="n">n_new_individuals</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">HAR_new_data</span><span class="p">)</span>
+<span class="n">X_HAR_new</span> <span class="o">=</span> <span class="p">[</span><span class="n">HAR_new_data</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_new_individuals</span><span class="p">)]</span>
+<span class="n">Y_new_hat</span> <span class="o">=</span> <span class="n">loaded_pipeline</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X_HAR_new</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Y_new_hat</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([3, 3, 3, ..., 3, 3, 3], dtype=uint8)
+</pre></div>
+</div>
+</div>
+</div>
+<p>As before, activities are predicted for each second in which the signals were measured.</p>
+<p>For example, the recognized activity in the first second of activity for the first new individual is <code class="docutils literal notranslate"><span class="pre">3:</span> <span class="pre">Standing</span></code>, since <code class="docutils literal notranslate"><span class="pre">Y_new_hat[0]</span> <span class="pre">==</span> <span class="pre">3</span></code>.</p>
+<p>In the following code cell we collect certain information that will be used below, to present the recognized activities for the new individuals in a more elegant way.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">blocks_size</span> <span class="o">=</span> <span class="n">loaded_pipeline</span><span class="o">.</span><span class="n">get_params</span><span class="p">()[</span><span class="s1">&#39;features_extraction__blocks_size&#39;</span><span class="p">]</span>
+<span class="n">best_stats</span> <span class="o">=</span> <span class="n">loaded_pipeline</span><span class="o">.</span><span class="n">get_params</span><span class="p">()[</span><span class="s1">&#39;features_extraction__statistics&#39;</span><span class="p">]</span>
+<span class="n">signals_block</span> <span class="o">=</span> <span class="n">loaded_pipeline</span><span class="o">.</span><span class="n">steps</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">signals_block</span>
+<span class="n">decoded_class_labels</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="s1">&#39;Running&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s1">&#39;Walking&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="s1">&#39;Standing&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="s1">&#39;Sitting&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">:</span> <span class="s1">&#39;Lying&#39;</span><span class="p">}</span>
+<span class="n">X_new</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">get_X_features_HAR</span><span class="p">(</span><span class="n">X_HAR</span><span class="o">=</span><span class="n">X_HAR_new</span><span class="p">,</span> <span class="n">blocks_size</span><span class="o">=</span><span class="n">blocks_size</span><span class="p">,</span> <span class="n">statistics</span><span class="o">=</span><span class="n">best_stats</span><span class="p">)</span>
+<span class="n">new_individuals_idx</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_new_individuals</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">new_individuals_idx</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">signals_block</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">new_individuals_idx</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">signals_block</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="nb">len</span><span class="p">(</span><span class="n">signals_block</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">signals_block</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Y_new_hat_expanded</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_new_individuals</span><span class="p">):</span>
+    <span class="n">Y_new_hat_expanded</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">new_individuals_idx</span><span class="p">[</span><span class="n">i</span><span class="p">]):</span>
+
+        <span class="n">block_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">signals_block</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+        <span class="n">time_secs</span> <span class="o">=</span> <span class="n">block_size</span><span class="o">/</span><span class="n">sampling_freq</span>
+        
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;=========================================================================================================================&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39; New Individual </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1"> - Block Number </span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s1"> - Block Size = </span><span class="si">{</span><span class="n">block_size</span><span class="si">}</span><span class="s1"> signals measurements - Block Time = </span><span class="si">{</span><span class="n">time_secs</span><span class="si">}</span><span class="s1"> seconds&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;=========================================================================================================================&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">INPUT --&gt; Signals measurements:</span><span class="se">\n\n</span><span class="s1"> </span><span class="si">{</span><span class="n">signals_block</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="si">}</span><span class="se">\n\n</span><span class="s1">PREPROCESSING (Features Extraction) --&gt; Signals statistics (</span><span class="si">{</span><span class="n">best_stats</span><span class="si">}</span><span class="s1">) for the block: </span><span class="se">\n\n</span><span class="s1"> </span><span class="si">{</span><span class="n">X_new</span><span class="p">[</span><span class="n">r</span><span class="p">]</span><span class="si">}</span><span class="se">\n\n</span><span class="s1">OUTPUT (Recognized Activity) --&gt; </span><span class="si">{</span><span class="n">decoded_class_labels</span><span class="p">[</span><span class="n">Y_new_hat</span><span class="p">[</span><span class="n">r</span><span class="p">]]</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        
+        <span class="c1"># Here he expand the prediction for each bloch to each signal observation belonging to the block, in order to save them following the original format of the provided data.</span>
+        <span class="n">Y_new_hat_expanded</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">Y_new_hat</span><span class="p">[</span><span class="n">r</span><span class="p">],</span> <span class="n">block_size</span><span class="p">))</span>
+    <span class="n">Y_new_hat_expanded</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">Y_new_hat_expanded</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">=========================================================================================================================</span>
+ <span class="n">New</span> <span class="n">Individual</span> <span class="mi">0</span> <span class="o">-</span> <span class="n">Block</span> <span class="n">Number</span> <span class="mi">0</span> <span class="o">-</span> <span class="n">Block</span> <span class="n">Size</span> <span class="o">=</span> <span class="mi">16</span> <span class="n">signals</span> <span class="n">measurements</span> <span class="o">-</span> <span class="n">Block</span> <span class="n">Time</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="n">seconds</span>
+<span class="o">=========================================================================================================================</span>
+
+<span class="n">INPUT</span> <span class="o">--&gt;</span> <span class="n">Signals</span> <span class="n">measurements</span><span class="p">:</span>
+
+ <span class="p">[[</span><span class="o">-</span><span class="mf">0.06516976</span>  <span class="mf">0.38268988</span> <span class="o">-</span><span class="mf">0.2133753</span>   <span class="mf">0.18997728</span>  <span class="mf">0.13234735</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">0.0188162</span>   <span class="mf">0.56415602</span>  <span class="mf">0.05981534</span>  <span class="mf">0.09126936</span>  <span class="mf">0.12937823</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">0.02866381</span>  <span class="mf">0.53441247</span>  <span class="mf">0.10957474</span>  <span class="mf">0.06215636</span>  <span class="mf">0.15868741</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">0.04405483</span>  <span class="mf">0.53172164</span>  <span class="mf">0.07782252</span>  <span class="mf">0.07026572</span>  <span class="mf">0.21301619</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">0.07323893</span>  <span class="mf">0.33030948</span>  <span class="mf">0.04207259</span>  <span class="mf">0.10479012</span>  <span class="mf">0.25472851</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">0.10348716</span>  <span class="mf">0.39947796</span>  <span class="mf">0.07482676</span>  <span class="mf">0.10607</span>     <span class="mf">0.24277312</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">0.00382445</span>  <span class="mf">0.24056696</span>  <span class="mf">0.07427139</span>  <span class="mf">0.10105946</span>  <span class="mf">0.23303664</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">0.02644907</span>  <span class="mf">0.22729669</span>  <span class="mf">0.07213565</span>  <span class="mf">0.09636051</span>  <span class="mf">0.1450192</span> <span class="p">]</span>
+ <span class="p">[</span> <span class="mf">0.00125242</span>  <span class="mf">0.17975689</span>  <span class="mf">0.05798641</span>  <span class="mf">0.09558193</span>  <span class="mf">0.11143713</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">0.0887153</span>   <span class="mf">0.23176001</span>  <span class="mf">0.05140934</span>  <span class="mf">0.09096713</span>  <span class="mf">0.11414265</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">0.09320141</span>  <span class="mf">0.14311734</span>  <span class="mf">0.03227439</span>  <span class="mf">0.09425283</span>  <span class="mf">0.11037175</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">0.00770817</span>  <span class="mf">0.20626431</span>  <span class="mf">0.01874265</span>  <span class="mf">0.09826403</span>  <span class="mf">0.08638627</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">0.0189568</span>   <span class="mf">0.18699118</span>  <span class="mf">0.00317415</span>  <span class="mf">0.10239344</span>  <span class="mf">0.06931742</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">0.09620386</span>  <span class="mf">0.09242085</span> <span class="o">-</span><span class="mf">0.00072207</span>  <span class="mf">0.10486445</span>  <span class="mf">0.07172898</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">0.025798</span>    <span class="mf">0.13298362</span> <span class="o">-</span><span class="mf">0.00270101</span>  <span class="mf">0.10720509</span>  <span class="mf">0.05703968</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">0.00187846</span>  <span class="mf">0.13547957</span>  <span class="mf">0.00058527</span>  <span class="mf">0.10414203</span>  <span class="mf">0.05195844</span><span class="p">]]</span>
+
+<span class="n">PREPROCESSING</span> <span class="p">(</span><span class="n">Features</span> <span class="n">Extraction</span><span class="p">)</span> <span class="o">--&gt;</span> <span class="n">Signals</span> <span class="n">statistics</span> <span class="p">(</span><span class="n">mean</span><span class="o">-</span><span class="n">median</span><span class="o">-</span><span class="n">std</span><span class="p">)</span> <span class="k">for</span> <span class="n">the</span> <span class="n">block</span><span class="p">:</span> 
+
+ <span class="p">[</span><span class="mf">0.02880319</span> <span class="mf">0.2824628</span>  <span class="mf">0.0286183</span>  <span class="mf">0.10122623</span> <span class="mf">0.13633556</span> <span class="mf">0.0223071</span>
+ <span class="mf">0.22952835</span> <span class="mf">0.04674096</span> <span class="mf">0.09966174</span> <span class="mf">0.12176044</span> <span class="mf">0.04859194</span> <span class="mf">0.1506874</span>
+ <span class="mf">0.07052091</span> <span class="mf">0.02594961</span> <span class="mf">0.0649858</span> <span class="p">]</span>
+
+<span class="n">OUTPUT</span> <span class="p">(</span><span class="n">Recognized</span> <span class="n">Activity</span><span class="p">)</span> <span class="o">--&gt;</span> <span class="n">Standing</span>
+
+<span class="o">=========================================================================================================================</span>
+ <span class="n">New</span> <span class="n">Individual</span> <span class="mi">0</span> <span class="o">-</span> <span class="n">Block</span> <span class="n">Number</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">Block</span> <span class="n">Size</span> <span class="o">=</span> <span class="mi">16</span> <span class="n">signals</span> <span class="n">measurements</span> <span class="o">-</span> <span class="n">Block</span> <span class="n">Time</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="n">seconds</span>
+<span class="o">=========================================================================================================================</span>
+
+<span class="n">INPUT</span> <span class="o">--&gt;</span> <span class="n">Signals</span> <span class="n">measurements</span><span class="p">:</span>
+
+ <span class="p">[[</span> <span class="mf">0.07822253</span>  <span class="mf">0.21299422</span> <span class="o">-</span><span class="mf">0.0011441</span>   <span class="mf">0.11126233</span>  <span class="mf">0.04826217</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">0.04543221</span>  <span class="mf">0.25207318</span> <span class="o">-</span><span class="mf">0.0012154</span>   <span class="mf">0.10402711</span>  <span class="mf">0.05718289</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">0.05370269</span>  <span class="mf">0.23917664</span> <span class="o">-</span><span class="mf">0.00283067</span>  <span class="mf">0.09973757</span>  <span class="mf">0.05563816</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">0.0082843</span>   <span class="mf">0.28679291</span> <span class="o">-</span><span class="mf">0.00582791</span>  <span class="mf">0.10807546</span>  <span class="mf">0.053654</span>  <span class="p">]</span>
+ <span class="p">[</span> <span class="mf">0.07131597</span>  <span class="mf">0.30846983</span>  <span class="mf">0.0052691</span>   <span class="mf">0.10534019</span>  <span class="mf">0.07849775</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">0.00168616</span>  <span class="mf">0.28142032</span>  <span class="mf">0.00428668</span>  <span class="mf">0.10561629</span>  <span class="mf">0.06620189</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">0.04566237</span>  <span class="mf">0.31789266</span> <span class="o">-</span><span class="mf">0.00083285</span>  <span class="mf">0.11061433</span>  <span class="mf">0.05802735</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">0.0087159</span>   <span class="mf">0.30301945</span> <span class="o">-</span><span class="mf">0.0028673</span>   <span class="mf">0.1102779</span>   <span class="mf">0.05448369</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">0.02124345</span>  <span class="mf">0.33206065</span> <span class="o">-</span><span class="mf">0.00604193</span>  <span class="mf">0.11468804</span>  <span class="mf">0.06918671</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">0.02084701</span>  <span class="mf">0.39256987</span>  <span class="mf">0.00854859</span>  <span class="mf">0.11038107</span>  <span class="mf">0.06349866</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">0.06357525</span>  <span class="mf">0.32646551</span>  <span class="mf">0.01121332</span>  <span class="mf">0.11854085</span>  <span class="mf">0.04058297</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">0.11133249</span>  <span class="mf">0.39876298</span>  <span class="mf">0.0064789</span>   <span class="mf">0.10701572</span>  <span class="mf">0.04557053</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">0.05612203</span>  <span class="mf">0.41737773</span> <span class="o">-</span><span class="mf">0.01098056</span>  <span class="mf">0.10447219</span>  <span class="mf">0.07345569</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">0.02591146</span>  <span class="mf">0.44740817</span>  <span class="mf">0.00811967</span>  <span class="mf">0.10293985</span>  <span class="mf">0.08541377</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">0.02673191</span>  <span class="mf">0.40071077</span>  <span class="mf">0.00154825</span>  <span class="mf">0.10383105</span>  <span class="mf">0.06254121</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">0.11410522</span>  <span class="mf">0.41102887</span>  <span class="mf">0.01493504</span>  <span class="mf">0.10052187</span>  <span class="mf">0.0584256</span> <span class="p">]]</span>
+
+<span class="n">PREPROCESSING</span> <span class="p">(</span><span class="n">Features</span> <span class="n">Extraction</span><span class="p">)</span> <span class="o">--&gt;</span> <span class="n">Signals</span> <span class="n">statistics</span> <span class="p">(</span><span class="n">mean</span><span class="o">-</span><span class="n">median</span><span class="o">-</span><span class="n">std</span><span class="p">)</span> <span class="k">for</span> <span class="n">the</span> <span class="n">block</span><span class="p">:</span> 
+
+ <span class="p">[</span><span class="mf">0.02299887</span> <span class="mf">0.33301398</span> <span class="mf">0.00179118</span> <span class="mf">0.10733386</span> <span class="mf">0.06066394</span> <span class="mf">0.01497968</span>
+ <span class="mf">0.32217908</span> <span class="mf">0.0003577</span>  <span class="mf">0.10631601</span> <span class="mf">0.05822647</span> <span class="mf">0.05291527</span> <span class="mf">0.06850033</span>
+ <span class="mf">0.00679033</span> <span class="mf">0.00491307</span> <span class="mf">0.01153968</span><span class="p">]</span>
+
+<span class="n">OUTPUT</span> <span class="p">(</span><span class="n">Recognized</span> <span class="n">Activity</span><span class="p">)</span> <span class="o">--&gt;</span> <span class="n">Standing</span>
+
+<span class="o">=========================================================================================================================</span>
+ <span class="n">New</span> <span class="n">Individual</span> <span class="mi">0</span> <span class="o">-</span> <span class="n">Block</span> <span class="n">Number</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">Block</span> <span class="n">Size</span> <span class="o">=</span> <span class="mi">16</span> <span class="n">signals</span> <span class="n">measurements</span> <span class="o">-</span> <span class="n">Block</span> <span class="n">Time</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="n">seconds</span>
+<span class="o">=========================================================================================================================</span>
+
+<span class="n">INPUT</span> <span class="o">--&gt;</span> <span class="n">Signals</span> <span class="n">measurements</span><span class="p">:</span>
+
+ <span class="p">[[</span> <span class="mf">0.04778877</span>  <span class="mf">0.48390299</span>  <span class="mf">0.01536225</span>  <span class="mf">0.08927573</span>  <span class="mf">0.07610216</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">0.00862728</span>  <span class="mf">0.42591055</span>  <span class="mf">0.01666294</span>  <span class="mf">0.09466854</span>  <span class="mf">0.0783439</span> <span class="p">]</span>
+ <span class="p">[</span> <span class="mf">0.00332619</span>  <span class="mf">0.39371577</span>  <span class="mf">0.01699184</span>  <span class="mf">0.09773712</span>  <span class="mf">0.05262936</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">0.02910045</span>  <span class="mf">0.41922215</span>  <span class="mf">0.01505755</span>  <span class="mf">0.09259787</span>  <span class="mf">0.03498327</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">0.02782871</span>  <span class="mf">0.44356219</span>  <span class="mf">0.01512198</span>  <span class="mf">0.10510717</span>  <span class="mf">0.01036895</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">0.00082794</span>  <span class="mf">0.48349567</span>  <span class="mf">0.02425552</span>  <span class="mf">0.10406379</span>  <span class="mf">0.02165936</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">0.03338541</span>  <span class="mf">0.46327954</span>  <span class="mf">0.00346781</span>  <span class="mf">0.11557792</span>  <span class="mf">0.06393324</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">0.02524285</span>  <span class="mf">0.38173151</span>  <span class="mf">0.00856409</span>  <span class="mf">0.11370167</span>  <span class="mf">0.08144859</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">0.06439862</span>  <span class="mf">0.47238916</span>  <span class="mf">0.03997783</span>  <span class="mf">0.08276327</span>  <span class="mf">0.06460615</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">0.02740109</span>  <span class="mf">0.43786911</span>  <span class="mf">0.01226558</span>  <span class="mf">0.0872837</span>   <span class="mf">0.0854358</span> <span class="p">]</span>
+ <span class="p">[</span> <span class="mf">0.02861887</span>  <span class="mf">0.45196874</span>  <span class="mf">0.02238081</span>  <span class="mf">0.1098863</span>   <span class="mf">0.10246427</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">0.02812908</span>  <span class="mf">0.42997001</span>  <span class="mf">0.0189658</span>   <span class="mf">0.10661932</span>  <span class="mf">0.11718231</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">0.00834373</span>  <span class="mf">0.36748554</span>  <span class="mf">0.01816767</span>  <span class="mf">0.09676115</span>  <span class="mf">0.11323331</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">0.00397363</span>  <span class="mf">0.38667027</span>  <span class="mf">0.02460613</span>  <span class="mf">0.10597855</span>  <span class="mf">0.11602011</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">0.02464908</span>  <span class="mf">0.45326285</span>  <span class="mf">0.00820614</span>  <span class="mf">0.1075354</span>   <span class="mf">0.1095591</span> <span class="p">]</span>
+ <span class="p">[</span> <span class="mf">0.14620165</span>  <span class="mf">0.43902184</span>  <span class="mf">0.02221119</span>  <span class="mf">0.10504964</span>  <span class="mf">0.09822822</span><span class="p">]]</span>
+
+<span class="n">PREPROCESSING</span> <span class="p">(</span><span class="n">Features</span> <span class="n">Extraction</span><span class="p">)</span> <span class="o">--&gt;</span> <span class="n">Signals</span> <span class="n">statistics</span> <span class="p">(</span><span class="n">mean</span><span class="o">-</span><span class="n">median</span><span class="o">-</span><span class="n">std</span><span class="p">)</span> <span class="k">for</span> <span class="n">the</span> <span class="n">block</span><span class="p">:</span> 
+
+ <span class="p">[</span><span class="mf">0.02300907</span> <span class="mf">0.43334112</span> <span class="mf">0.01764157</span> <span class="mf">0.10091294</span> <span class="mf">0.07663738</span> <span class="mf">0.02653578</span>
+ <span class="mf">0.43844548</span> <span class="mf">0.01682739</span> <span class="mf">0.10455671</span> <span class="mf">0.07989625</span> <span class="mf">0.04019369</span> <span class="mf">0.03482897</span>
+ <span class="mf">0.00812925</span> <span class="mf">0.00932702</span> <span class="mf">0.03248714</span><span class="p">]</span>
+
+<span class="n">OUTPUT</span> <span class="p">(</span><span class="n">Recognized</span> <span class="n">Activity</span><span class="p">)</span> <span class="o">--&gt;</span> <span class="n">Standing</span>
+
+<span class="o">...</span>
+
+<span class="o">=========================================================================================================================</span>
+ <span class="n">New</span> <span class="n">Individual</span> <span class="mi">0</span> <span class="o">-</span> <span class="n">Block</span> <span class="n">Number</span> <span class="mi">59</span> <span class="o">-</span> <span class="n">Block</span> <span class="n">Size</span> <span class="o">=</span> <span class="mi">16</span> <span class="n">signals</span> <span class="n">measurements</span> <span class="o">-</span> <span class="n">Block</span> <span class="n">Time</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="n">seconds</span>
+<span class="o">=========================================================================================================================</span>
+
+<span class="n">INPUT</span> <span class="o">--&gt;</span> <span class="n">Signals</span> <span class="n">measurements</span><span class="p">:</span>
+
+ <span class="p">[[</span><span class="o">-</span><span class="mf">2.28260037e+00</span>  <span class="mf">6.19702108e+00</span>  <span class="mf">1.78860752e-02</span>  <span class="mf">1.11242208e-01</span>
+   <span class="mf">1.08525649e-01</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">2.28962059e+00</span>  <span class="mf">6.17941111e+00</span>  <span class="mf">4.09508644e-02</span>  <span class="mf">7.47088261e-02</span>
+   <span class="mf">8.04042306e-02</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">2.32547332e+00</span>  <span class="mf">6.45854210e+00</span>  <span class="mf">2.53976364e-02</span>  <span class="mf">8.25834606e-02</span>
+   <span class="mf">5.98026245e-02</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">2.35060286e+00</span>  <span class="mf">6.32454438e+00</span> <span class="o">-</span><span class="mf">2.24922907e-02</span>  <span class="mf">1.09600611e-01</span>
+   <span class="mf">5.70599830e-02</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">2.29416337e+00</span>  <span class="mf">6.26870749e+00</span>  <span class="mf">1.68413750e-02</span>  <span class="mf">1.20072007e-01</span>
+   <span class="mf">7.65656863e-02</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">2.23846409e+00</span>  <span class="mf">6.13132261e+00</span>  <span class="mf">3.24662172e-02</span>  <span class="mf">1.04301248e-01</span>
+   <span class="mf">8.54639066e-02</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">2.24637379e+00</span>  <span class="mf">6.30068904e+00</span>  <span class="mf">3.74667356e-02</span>  <span class="mf">9.80247131e-02</span>
+   <span class="mf">6.72340788e-02</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">2.23325748e+00</span>  <span class="mf">6.46033989e+00</span>  <span class="mf">4.18832000e-02</span>  <span class="mf">8.32161243e-02</span>
+   <span class="mf">6.31504677e-02</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">2.38646624e+00</span>  <span class="mf">6.17376667e+00</span>  <span class="mf">1.59226561e-02</span>  <span class="mf">7.00459892e-02</span>
+   <span class="mf">8.71173475e-02</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">2.25592385e+00</span>  <span class="mf">6.30867017e+00</span>  <span class="mf">3.02436426e-02</span>  <span class="mf">7.23731323e-02</span>
+   <span class="mf">1.08698414e-01</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">2.39681587e+00</span>  <span class="mf">6.42058930e+00</span>  <span class="mf">2.76985572e-02</span>  <span class="mf">7.38676670e-02</span>
+   <span class="mf">8.94875861e-02</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">2.35703308e+00</span>  <span class="mf">6.31123581e+00</span>  <span class="mf">1.48041829e-02</span>  <span class="mf">9.03541631e-02</span>
+   <span class="mf">5.64331927e-02</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">2.37738044e+00</span>  <span class="mf">6.33773834e+00</span>  <span class="mf">1.18966275e-02</span>  <span class="mf">1.02832343e-01</span>
+   <span class="mf">6.81331832e-02</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">2.27727583e+00</span>  <span class="mf">6.31095378e+00</span>  <span class="mf">4.35036436e-03</span>  <span class="mf">1.14569777e-01</span>
+   <span class="mf">8.39630509e-02</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">2.37969593e+00</span>  <span class="mf">6.23354268e+00</span>  <span class="mf">1.53563604e-02</span>  <span class="mf">1.04151484e-01</span>
+   <span class="mf">5.68268814e-02</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">2.32774979e+00</span>  <span class="mf">6.43938632e+00</span> <span class="o">-</span><span class="mf">1.41010504e-02</span>  <span class="mf">1.37142863e-01</span>
+   <span class="mf">3.32484988e-02</span><span class="p">]]</span>
+
+<span class="n">PREPROCESSING</span> <span class="p">(</span><span class="n">Features</span> <span class="n">Extraction</span><span class="p">)</span> <span class="o">--&gt;</span> <span class="n">Signals</span> <span class="n">statistics</span> <span class="p">(</span><span class="n">mean</span><span class="o">-</span><span class="n">median</span><span class="o">-</span><span class="n">std</span><span class="p">)</span> <span class="k">for</span> <span class="n">the</span> <span class="n">block</span><span class="p">:</span> 
+
+ <span class="p">[</span><span class="o">-</span><span class="mf">2.31368106</span>  <span class="mf">6.3035288</span>   <span class="mf">0.0185357</span>   <span class="mf">0.09681791</span>  <span class="mf">0.07388217</span> <span class="o">-</span><span class="mf">2.30981835</span>
+  <span class="mf">6.30981197</span>  <span class="mf">0.01736373</span>  <span class="mf">0.10042853</span>  <span class="mf">0.07234943</span>  <span class="mf">0.05445592</span>  <span class="mf">0.10058985</span>
+  <span class="mf">0.01749289</span>  <span class="mf">0.01897378</span>  <span class="mf">0.01942392</span><span class="p">]</span>
+
+<span class="n">OUTPUT</span> <span class="p">(</span><span class="n">Recognized</span> <span class="n">Activity</span><span class="p">)</span> <span class="o">--&gt;</span> <span class="n">Sitting</span>
+
+<span class="o">=========================================================================================================================</span>
+ <span class="n">New</span> <span class="n">Individual</span> <span class="mi">0</span> <span class="o">-</span> <span class="n">Block</span> <span class="n">Number</span> <span class="mi">60</span> <span class="o">-</span> <span class="n">Block</span> <span class="n">Size</span> <span class="o">=</span> <span class="mi">16</span> <span class="n">signals</span> <span class="n">measurements</span> <span class="o">-</span> <span class="n">Block</span> <span class="n">Time</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="n">seconds</span>
+<span class="o">=========================================================================================================================</span>
+
+<span class="n">INPUT</span> <span class="o">--&gt;</span> <span class="n">Signals</span> <span class="n">measurements</span><span class="p">:</span>
+
+ <span class="p">[[</span><span class="o">-</span><span class="mf">2.30534584e+00</span>  <span class="mf">6.30718387e+00</span> <span class="o">-</span><span class="mf">2.68604323e-02</span>  <span class="mf">1.53833093e-01</span>
+   <span class="mf">4.92161601e-02</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">2.25972823e+00</span>  <span class="mf">6.22086616e+00</span> <span class="o">-</span><span class="mf">2.36429229e-02</span>  <span class="mf">1.54699368e-01</span>
+   <span class="mf">3.90276910e-02</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">2.20573239e+00</span>  <span class="mf">6.17372435e+00</span>  <span class="mf">1.07463614e-02</span>  <span class="mf">1.32801156e-01</span>
+   <span class="mf">4.73162179e-02</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">2.18689282e+00</span>  <span class="mf">6.23785376e+00</span>  <span class="mf">4.17367001e-02</span>  <span class="mf">1.01454547e-01</span>
+   <span class="mf">6.50913160e-02</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">2.25326706e+00</span>  <span class="mf">6.24526488e+00</span>  <span class="mf">5.59098726e-02</span>  <span class="mf">1.14539833e-01</span>
+   <span class="mf">6.54507350e-02</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">2.29440015e+00</span>  <span class="mf">6.23554030e+00</span>  <span class="mf">5.80987982e-02</span>  <span class="mf">7.90362639e-02</span>
+   <span class="mf">5.37920779e-02</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">2.30106868e+00</span>  <span class="mf">6.26091466e+00</span>  <span class="mf">4.93633524e-02</span>  <span class="mf">9.67548737e-02</span>
+   <span class="mf">5.19385316e-02</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">2.23245924e+00</span>  <span class="mf">6.32210019e+00</span>  <span class="mf">5.95476771e-02</span>  <span class="mf">8.63986098e-02</span>
+   <span class="mf">5.27818188e-02</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">2.46030112e+00</span>  <span class="mf">6.33513660e+00</span>  <span class="mf">4.45454370e-02</span>  <span class="mf">7.86472389e-02</span>
+   <span class="mf">6.47091952e-02</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">2.38278531e+00</span>  <span class="mf">6.36172351e+00</span> <span class="o">-</span><span class="mf">2.12203205e-02</span>  <span class="mf">1.59150401e-01</span>
+   <span class="mf">3.29387815e-02</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">2.21272754e+00</span>  <span class="mf">6.19756511e+00</span>  <span class="mf">2.86020701e-02</span>  <span class="mf">1.12243754e-01</span>
+   <span class="mf">8.07910135e-02</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">2.27082042e+00</span>  <span class="mf">6.24800037e+00</span>  <span class="mf">5.28860781e-02</span>  <span class="mf">8.35630408e-02</span>
+   <span class="mf">7.54125779e-02</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">2.34705909e+00</span>  <span class="mf">6.34145874e+00</span>  <span class="mf">4.28743889e-02</span>  <span class="mf">8.16058674e-02</span>
+   <span class="mf">7.60058711e-02</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">2.33897291e+00</span>  <span class="mf">6.41292117e+00</span>  <span class="mf">1.56692736e-02</span>  <span class="mf">9.35784241e-02</span>
+   <span class="mf">6.48964550e-02</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">2.34432958e+00</span>  <span class="mf">6.29141508e+00</span> <span class="o">-</span><span class="mf">1.63619444e-03</span>  <span class="mf">1.02904398e-01</span>
+   <span class="mf">5.92798444e-02</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">2.30815907e+00</span>  <span class="mf">6.28951828e+00</span>  <span class="mf">5.36837205e-03</span>  <span class="mf">1.08573940e-01</span>
+   <span class="mf">7.12588782e-02</span><span class="p">]]</span>
+
+<span class="n">PREPROCESSING</span> <span class="p">(</span><span class="n">Features</span> <span class="n">Extraction</span><span class="p">)</span> <span class="o">--&gt;</span> <span class="n">Signals</span> <span class="n">statistics</span> <span class="p">(</span><span class="n">mean</span><span class="o">-</span><span class="n">median</span><span class="o">-</span><span class="n">std</span><span class="p">)</span> <span class="k">for</span> <span class="n">the</span> <span class="n">block</span><span class="p">:</span> 
+
+ <span class="p">[</span><span class="o">-</span><span class="mf">2.29400309</span>  <span class="mf">6.28007419</span>  <span class="mf">0.02449928</span>  <span class="mf">0.10873655</span>  <span class="mf">0.0593692</span>  <span class="o">-</span><span class="mf">2.29773441</span>
+  <span class="mf">6.27521647</span>  <span class="mf">0.03516939</span>  <span class="mf">0.10217947</span>  <span class="mf">0.06199452</span>  <span class="mf">0.06906326</span>  <span class="mf">0.06216448</span>
+  <span class="mf">0.02977349</span>  <span class="mf">0.02672727</span>  <span class="mf">0.01311879</span><span class="p">]</span>
+
+<span class="n">OUTPUT</span> <span class="p">(</span><span class="n">Recognized</span> <span class="n">Activity</span><span class="p">)</span> <span class="o">--&gt;</span> <span class="n">Sitting</span>
+
+<span class="o">...</span>
+
+
+<span class="o">=========================================================================================================================</span>
+ <span class="n">New</span> <span class="n">Individual</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">Block</span> <span class="n">Number</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">Block</span> <span class="n">Size</span> <span class="o">=</span> <span class="mi">16</span> <span class="n">signals</span> <span class="n">measurements</span> <span class="o">-</span> <span class="n">Block</span> <span class="n">Time</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="n">seconds</span>
+<span class="o">=========================================================================================================================</span>
+
+<span class="n">INPUT</span> <span class="o">--&gt;</span> <span class="n">Signals</span> <span class="n">measurements</span><span class="p">:</span>
+
+ <span class="p">[[</span> <span class="mf">1.49015985e-01</span>  <span class="mf">6.25462328e-01</span>  <span class="mf">1.27938275e-01</span> <span class="o">-</span><span class="mf">2.06128599e-01</span>
+   <span class="mf">1.08589651e-01</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">1.78453582e-01</span>  <span class="mf">5.54469097e-01</span> <span class="o">-</span><span class="mf">1.20610026e-01</span> <span class="o">-</span><span class="mf">8.24080933e-02</span>
+   <span class="mf">7.27283399e-03</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">1.33824501e-01</span>  <span class="mf">5.76240889e-01</span> <span class="o">-</span><span class="mf">3.99418272e-02</span> <span class="o">-</span><span class="mf">1.14318549e-01</span>
+   <span class="mf">4.54782257e-02</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">2.63926685e-03</span>  <span class="mf">4.78947140e-01</span> <span class="o">-</span><span class="mf">3.54932743e-02</span> <span class="o">-</span><span class="mf">1.43753799e-01</span>
+   <span class="mf">6.68661772e-02</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">3.41714054e-02</span>  <span class="mf">4.63544001e-01</span> <span class="o">-</span><span class="mf">4.27514870e-02</span> <span class="o">-</span><span class="mf">1.07912333e-01</span>
+   <span class="mf">3.85242732e-02</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">6.51483360e-03</span>  <span class="mf">4.95013138e-01</span> <span class="o">-</span><span class="mf">4.82443935e-02</span> <span class="o">-</span><span class="mf">1.16467601e-01</span>
+   <span class="mf">4.37964831e-02</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">2.68100732e-02</span>  <span class="mf">4.65860782e-01</span> <span class="o">-</span><span class="mf">6.61906305e-02</span> <span class="o">-</span><span class="mf">1.08538076e-01</span>
+   <span class="mf">1.64220506e-02</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">4.16333010e-02</span>  <span class="mf">4.32329012e-01</span> <span class="o">-</span><span class="mf">8.32742439e-02</span> <span class="o">-</span><span class="mf">1.03783222e-01</span>
+   <span class="mf">2.33844945e-02</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">2.64351962e-02</span>  <span class="mf">4.16100167e-01</span> <span class="o">-</span><span class="mf">9.59285599e-02</span> <span class="o">-</span><span class="mf">7.84140752e-02</span>
+  <span class="o">-</span><span class="mf">2.39937901e-02</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">8.48043553e-03</span>  <span class="mf">5.62353793e-01</span> <span class="o">-</span><span class="mf">4.55814398e-02</span> <span class="o">-</span><span class="mf">1.00767464e-01</span>
+  <span class="o">-</span><span class="mf">1.01985847e-02</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">4.60716020e-02</span>  <span class="mf">6.08898047e-01</span> <span class="o">-</span><span class="mf">7.38822278e-02</span> <span class="o">-</span><span class="mf">7.46584122e-02</span>
+  <span class="o">-</span><span class="mf">1.01951558e-02</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">3.17623157e-02</span>  <span class="mf">4.80367124e-01</span> <span class="o">-</span><span class="mf">6.45652174e-02</span> <span class="o">-</span><span class="mf">1.05561550e-01</span>
+   <span class="mf">5.09265966e-03</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">2.73892998e-02</span>  <span class="mf">5.20883416e-01</span> <span class="o">-</span><span class="mf">5.45471867e-02</span> <span class="o">-</span><span class="mf">9.83508851e-02</span>
+   <span class="mf">1.74810862e-02</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">2.77537785e-02</span>  <span class="mf">4.54044838e-01</span> <span class="o">-</span><span class="mf">6.89263990e-02</span> <span class="o">-</span><span class="mf">9.60092935e-02</span>
+  <span class="o">-</span><span class="mf">3.61435911e-04</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">1.37283422e-02</span>  <span class="mf">4.38031142e-01</span> <span class="o">-</span><span class="mf">6.77213567e-02</span> <span class="o">-</span><span class="mf">9.59174679e-02</span>
+   <span class="mf">2.28721998e-02</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">1.34388401e-02</span>  <span class="mf">4.56645941e-01</span> <span class="o">-</span><span class="mf">6.26149052e-02</span> <span class="o">-</span><span class="mf">9.40668758e-02</span>
+   <span class="mf">1.33490357e-02</span><span class="p">]]</span>
+
+<span class="n">PREPROCESSING</span> <span class="p">(</span><span class="n">Features</span> <span class="n">Extraction</span><span class="p">)</span> <span class="o">--&gt;</span> <span class="n">Signals</span> <span class="n">statistics</span> <span class="p">(</span><span class="n">mean</span><span class="o">-</span><span class="n">median</span><span class="o">-</span><span class="n">std</span><span class="p">)</span> <span class="k">for</span> <span class="n">the</span> <span class="n">block</span><span class="p">:</span> 
+
+ <span class="p">[</span> <span class="mf">0.00868386</span>  <span class="mf">0.50182443</span> <span class="o">-</span><span class="mf">0.05264593</span> <span class="o">-</span><span class="mf">0.10794102</span>  <span class="mf">0.02277376</span> <span class="o">-</span><span class="mf">0.00193778</span>
+  <span class="mf">0.47965713</span> <span class="o">-</span><span class="mf">0.06359006</span> <span class="o">-</span><span class="mf">0.10227534</span>  <span class="mf">0.01695157</span>  <span class="mf">0.07080554</span>  <span class="mf">0.06297231</span>
+  <span class="mf">0.05125663</span>  <span class="mf">0.0299107</span>   <span class="mf">0.03174219</span><span class="p">]</span>
+
+<span class="n">OUTPUT</span> <span class="p">(</span><span class="n">Recognized</span> <span class="n">Activity</span><span class="p">)</span> <span class="o">--&gt;</span> <span class="n">Standing</span>
+
+<span class="o">=========================================================================================================================</span>
+ <span class="n">New</span> <span class="n">Individual</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">Block</span> <span class="n">Number</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">Block</span> <span class="n">Size</span> <span class="o">=</span> <span class="mi">16</span> <span class="n">signals</span> <span class="n">measurements</span> <span class="o">-</span> <span class="n">Block</span> <span class="n">Time</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="n">seconds</span>
+<span class="o">=========================================================================================================================</span>
+
+<span class="n">INPUT</span> <span class="o">--&gt;</span> <span class="n">Signals</span> <span class="n">measurements</span><span class="p">:</span>
+
+ <span class="p">[[</span> <span class="mf">0.03200326</span>  <span class="mf">0.39199462</span> <span class="o">-</span><span class="mf">0.07937056</span> <span class="o">-</span><span class="mf">0.08255738</span>  <span class="mf">0.02944162</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">0.0615302</span>   <span class="mf">0.42596383</span> <span class="o">-</span><span class="mf">0.08545137</span> <span class="o">-</span><span class="mf">0.06682359</span>  <span class="mf">0.03008667</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">0.06988397</span>  <span class="mf">0.43066339</span> <span class="o">-</span><span class="mf">0.12777255</span> <span class="o">-</span><span class="mf">0.04889449</span>  <span class="mf">0.01497135</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">0.19379363</span>  <span class="mf">0.53975027</span> <span class="o">-</span><span class="mf">0.08365007</span> <span class="o">-</span><span class="mf">0.07602923</span>  <span class="mf">0.02498634</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">0.04025532</span>  <span class="mf">0.48246129</span> <span class="o">-</span><span class="mf">0.02599475</span> <span class="o">-</span><span class="mf">0.12118733</span>  <span class="mf">0.01197572</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">0.00444959</span>  <span class="mf">0.53620987</span> <span class="o">-</span><span class="mf">0.04941255</span> <span class="o">-</span><span class="mf">0.13871684</span>  <span class="mf">0.0027299</span> <span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">0.0316027</span>   <span class="mf">0.53651514</span> <span class="o">-</span><span class="mf">0.06411493</span> <span class="o">-</span><span class="mf">0.11149899</span> <span class="o">-</span><span class="mf">0.00285924</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">0.06897351</span>  <span class="mf">0.491657</span>   <span class="o">-</span><span class="mf">0.06525267</span> <span class="o">-</span><span class="mf">0.11112671</span> <span class="o">-</span><span class="mf">0.00486168</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">0.03635293</span>  <span class="mf">0.54249719</span> <span class="o">-</span><span class="mf">0.05041389</span> <span class="o">-</span><span class="mf">0.10658647</span>  <span class="mf">0.02196124</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">0.00107888</span>  <span class="mf">0.49511685</span> <span class="o">-</span><span class="mf">0.06887865</span> <span class="o">-</span><span class="mf">0.09995228</span>  <span class="mf">0.03627677</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">0.01599631</span>  <span class="mf">0.45660556</span> <span class="o">-</span><span class="mf">0.07351655</span> <span class="o">-</span><span class="mf">0.09223558</span>  <span class="mf">0.03099632</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">0.0214132</span>   <span class="mf">0.49463079</span> <span class="o">-</span><span class="mf">0.0686801</span>  <span class="o">-</span><span class="mf">0.09806654</span>  <span class="mf">0.04238008</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">0.06347804</span>  <span class="mf">0.50736366</span> <span class="o">-</span><span class="mf">0.05413573</span> <span class="o">-</span><span class="mf">0.12573633</span>  <span class="mf">0.03233877</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">0.08797528</span>  <span class="mf">0.42845</span>    <span class="o">-</span><span class="mf">0.06887897</span> <span class="o">-</span><span class="mf">0.09053895</span> <span class="o">-</span><span class="mf">0.0431557</span> <span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">0.10436169</span>  <span class="mf">0.49481175</span> <span class="o">-</span><span class="mf">0.00090886</span> <span class="o">-</span><span class="mf">0.10655082</span> <span class="o">-</span><span class="mf">0.05587816</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">0.07616957</span>  <span class="mf">0.2314104</span>  <span class="o">-</span><span class="mf">0.02816534</span> <span class="o">-</span><span class="mf">0.11419828</span> <span class="o">-</span><span class="mf">0.08011093</span><span class="p">]]</span>
+
+<span class="n">PREPROCESSING</span> <span class="p">(</span><span class="n">Features</span> <span class="n">Extraction</span><span class="p">)</span> <span class="o">--&gt;</span> <span class="n">Signals</span> <span class="n">statistics</span> <span class="p">(</span><span class="n">mean</span><span class="o">-</span><span class="n">median</span><span class="o">-</span><span class="n">std</span><span class="p">)</span> <span class="k">for</span> <span class="n">the</span> <span class="n">block</span><span class="p">:</span> 
+
+ <span class="p">[</span><span class="o">-</span><span class="mf">0.00272129</span>  <span class="mf">0.46788135</span> <span class="o">-</span><span class="mf">0.06216235</span> <span class="o">-</span><span class="mf">0.09941874</span>  <span class="mf">0.00570494</span> <span class="o">-</span><span class="mf">0.00276423</span>
+  <span class="mf">0.4931439</span>  <span class="o">-</span><span class="mf">0.06696638</span> <span class="o">-</span><span class="mf">0.10325155</span>  <span class="mf">0.0184663</span>   <span class="mf">0.07289855</span>  <span class="mf">0.07547054</span>
+  <span class="mf">0.02790699</span>  <span class="mf">0.02221147</span>  <span class="mf">0.03471842</span><span class="p">]</span>
+
+<span class="n">OUTPUT</span> <span class="p">(</span><span class="n">Recognized</span> <span class="n">Activity</span><span class="p">)</span> <span class="o">--&gt;</span> <span class="n">Standing</span>
+
+<span class="o">...</span>
+
+<span class="o">=========================================================================================================================</span>
+ <span class="n">New</span> <span class="n">Individual</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">Block</span> <span class="n">Number</span> <span class="mi">1279</span> <span class="o">-</span> <span class="n">Block</span> <span class="n">Size</span> <span class="o">=</span> <span class="mi">16</span> <span class="n">signals</span> <span class="n">measurements</span> <span class="o">-</span> <span class="n">Block</span> <span class="n">Time</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="n">seconds</span>
+<span class="o">=========================================================================================================================</span>
+
+<span class="n">INPUT</span> <span class="o">--&gt;</span> <span class="n">Signals</span> <span class="n">measurements</span><span class="p">:</span>
+
+ <span class="p">[[</span><span class="o">-</span><span class="mf">9.7236797</span>   <span class="mf">9.78765055</span> <span class="o">-</span><span class="mf">0.07826886</span> <span class="o">-</span><span class="mf">0.09296181</span>  <span class="mf">0.02324681</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">9.71024741</span>  <span class="mf">9.78780103</span> <span class="o">-</span><span class="mf">0.08664864</span> <span class="o">-</span><span class="mf">0.09836944</span>  <span class="mf">0.02550504</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">9.71636867</span>  <span class="mf">9.78497737</span> <span class="o">-</span><span class="mf">0.09017462</span> <span class="o">-</span><span class="mf">0.09398053</span>  <span class="mf">0.0185009</span> <span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">9.74493013</span>  <span class="mf">9.76237183</span> <span class="o">-</span><span class="mf">0.07982629</span> <span class="o">-</span><span class="mf">0.09297332</span>  <span class="mf">0.0231035</span> <span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">9.71775349</span>  <span class="mf">9.76244408</span> <span class="o">-</span><span class="mf">0.08836553</span> <span class="o">-</span><span class="mf">0.09695421</span>  <span class="mf">0.02981121</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">9.7272314</span>   <span class="mf">9.81127016</span> <span class="o">-</span><span class="mf">0.07738297</span> <span class="o">-</span><span class="mf">0.10457155</span>  <span class="mf">0.02849129</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">9.67471676</span>  <span class="mf">9.79049724</span> <span class="o">-</span><span class="mf">0.08205108</span> <span class="o">-</span><span class="mf">0.09380148</span>  <span class="mf">0.02382906</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">9.74512381</span>  <span class="mf">9.78120827</span> <span class="o">-</span><span class="mf">0.08782724</span> <span class="o">-</span><span class="mf">0.08865106</span>  <span class="mf">0.02182622</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">9.73814035</span>  <span class="mf">9.7913648</span>  <span class="o">-</span><span class="mf">0.07957049</span> <span class="o">-</span><span class="mf">0.094217</span>    <span class="mf">0.02260081</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">9.73652942</span>  <span class="mf">9.7789823</span>  <span class="o">-</span><span class="mf">0.08318082</span> <span class="o">-</span><span class="mf">0.09491179</span>  <span class="mf">0.01888795</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">9.74123547</span>  <span class="mf">9.79765314</span> <span class="o">-</span><span class="mf">0.08250326</span> <span class="o">-</span><span class="mf">0.0942661</span>   <span class="mf">0.02984419</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">9.71603674</span>  <span class="mf">9.77976535</span> <span class="o">-</span><span class="mf">0.08043434</span> <span class="o">-</span><span class="mf">0.09989504</span>  <span class="mf">0.02592365</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">9.74828409</span>  <span class="mf">9.78561181</span> <span class="o">-</span><span class="mf">0.07578871</span> <span class="o">-</span><span class="mf">0.10300259</span>  <span class="mf">0.02604279</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">9.72661961</span>  <span class="mf">9.75888862</span> <span class="o">-</span><span class="mf">0.07660528</span> <span class="o">-</span><span class="mf">0.10082304</span>  <span class="mf">0.03151713</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">9.71966034</span>  <span class="mf">9.77536815</span> <span class="o">-</span><span class="mf">0.08619835</span> <span class="o">-</span><span class="mf">0.09632824</span>  <span class="mf">0.02101847</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">9.73171954</span>  <span class="mf">9.79222346</span> <span class="o">-</span><span class="mf">0.07927821</span> <span class="o">-</span><span class="mf">0.1035274</span>   <span class="mf">0.02352966</span><span class="p">]]</span>
+
+<span class="n">PREPROCESSING</span> <span class="p">(</span><span class="n">Features</span> <span class="n">Extraction</span><span class="p">)</span> <span class="o">--&gt;</span> <span class="n">Signals</span> <span class="n">statistics</span> <span class="p">(</span><span class="n">mean</span><span class="o">-</span><span class="n">median</span><span class="o">-</span><span class="n">std</span><span class="p">)</span> <span class="k">for</span> <span class="n">the</span> <span class="n">block</span><span class="p">:</span> 
+
+ <span class="p">[</span><span class="o">-</span><span class="mf">9.72614231e+00</span>  <span class="mf">9.78300488e+00</span> <span class="o">-</span><span class="mf">8.21315430e-02</span> <span class="o">-</span><span class="mf">9.68271624e-02</span>
+  <span class="mf">2.46049179e-02</span> <span class="o">-</span><span class="mf">9.72692550e+00</span>  <span class="mf">9.78529459e+00</span> <span class="o">-</span><span class="mf">8.12427074e-02</span>
+ <span class="o">-</span><span class="mf">9.56200146e-02</span>  <span class="mf">2.36793608e-02</span>  <span class="mf">1.75517813e-02</span>  <span class="mf">1.32241770e-02</span>
+  <span class="mf">4.36834370e-03</span>  <span class="mf">4.34430396e-03</span>  <span class="mf">3.72872720e-03</span><span class="p">]</span>
+
+<span class="n">OUTPUT</span> <span class="p">(</span><span class="n">Recognized</span> <span class="n">Activity</span><span class="p">)</span> <span class="o">--&gt;</span> <span class="n">Lying</span>
+
+<span class="o">=========================================================================================================================</span>
+ <span class="n">New</span> <span class="n">Individual</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">Block</span> <span class="n">Number</span> <span class="mi">1280</span> <span class="o">-</span> <span class="n">Block</span> <span class="n">Size</span> <span class="o">=</span> <span class="mi">16</span> <span class="n">signals</span> <span class="n">measurements</span> <span class="o">-</span> <span class="n">Block</span> <span class="n">Time</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="n">seconds</span>
+<span class="o">=========================================================================================================================</span>
+
+<span class="n">INPUT</span> <span class="o">--&gt;</span> <span class="n">Signals</span> <span class="n">measurements</span><span class="p">:</span>
+
+ <span class="p">[[</span><span class="o">-</span><span class="mf">9.72452481</span>  <span class="mf">9.791431</span>   <span class="o">-</span><span class="mf">0.08153128</span> <span class="o">-</span><span class="mf">0.0980363</span>   <span class="mf">0.0331189</span> <span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">9.73090227</span>  <span class="mf">9.78591682</span> <span class="o">-</span><span class="mf">0.08123767</span> <span class="o">-</span><span class="mf">0.09929803</span>  <span class="mf">0.02849485</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">9.73515962</span>  <span class="mf">9.80447441</span> <span class="o">-</span><span class="mf">0.07396522</span> <span class="o">-</span><span class="mf">0.10266531</span>  <span class="mf">0.02583939</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">9.67339756</span>  <span class="mf">9.7681223</span>  <span class="o">-</span><span class="mf">0.0779394</span>  <span class="o">-</span><span class="mf">0.09109059</span>  <span class="mf">0.01756051</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">9.7538064</span>   <span class="mf">9.79423185</span> <span class="o">-</span><span class="mf">0.08265778</span> <span class="o">-</span><span class="mf">0.09582852</span>  <span class="mf">0.01803676</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">9.7314615</span>   <span class="mf">9.79160866</span> <span class="o">-</span><span class="mf">0.07242014</span> <span class="o">-</span><span class="mf">0.10422434</span>  <span class="mf">0.02582745</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">9.73220698</span>  <span class="mf">9.78589767</span> <span class="o">-</span><span class="mf">0.08785393</span> <span class="o">-</span><span class="mf">0.10101906</span>  <span class="mf">0.02727601</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">9.74870293</span>  <span class="mf">9.80572515</span> <span class="o">-</span><span class="mf">0.08128549</span> <span class="o">-</span><span class="mf">0.09595485</span>  <span class="mf">0.02384868</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">9.7138149</span>   <span class="mf">9.78154173</span> <span class="o">-</span><span class="mf">0.07537525</span> <span class="o">-</span><span class="mf">0.10094235</span>  <span class="mf">0.02567777</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">9.74131755</span>  <span class="mf">9.78517082</span> <span class="o">-</span><span class="mf">0.08488656</span> <span class="o">-</span><span class="mf">0.10273061</span>  <span class="mf">0.02758194</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">9.72467397</span>  <span class="mf">9.77991673</span> <span class="o">-</span><span class="mf">0.07497404</span> <span class="o">-</span><span class="mf">0.10202905</span>  <span class="mf">0.02362676</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">9.72435314</span>  <span class="mf">9.77667271</span> <span class="o">-</span><span class="mf">0.07676169</span> <span class="o">-</span><span class="mf">0.09765588</span>  <span class="mf">0.02429773</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">9.72473248</span>  <span class="mf">9.79430621</span> <span class="o">-</span><span class="mf">0.07405093</span> <span class="o">-</span><span class="mf">0.09497057</span>  <span class="mf">0.02816375</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">9.72548542</span>  <span class="mf">9.78472375</span> <span class="o">-</span><span class="mf">0.07841527</span> <span class="o">-</span><span class="mf">0.09311879</span>  <span class="mf">0.02479505</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">9.72666993</span>  <span class="mf">9.79027435</span> <span class="o">-</span><span class="mf">0.08678271</span> <span class="o">-</span><span class="mf">0.09853237</span>  <span class="mf">0.0256788</span> <span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">9.75813978</span>  <span class="mf">9.78976336</span> <span class="o">-</span><span class="mf">0.08034093</span> <span class="o">-</span><span class="mf">0.08749788</span>  <span class="mf">0.04036686</span><span class="p">]]</span>
+
+<span class="n">PREPROCESSING</span> <span class="p">(</span><span class="n">Features</span> <span class="n">Extraction</span><span class="p">)</span> <span class="o">--&gt;</span> <span class="n">Signals</span> <span class="n">statistics</span> <span class="p">(</span><span class="n">mean</span><span class="o">-</span><span class="n">median</span><span class="o">-</span><span class="n">std</span><span class="p">)</span> <span class="k">for</span> <span class="n">the</span> <span class="n">block</span><span class="p">:</span> 
+
+ <span class="p">[</span><span class="o">-</span><span class="mf">9.72933433e+00</span>  <span class="mf">9.78811110e+00</span> <span class="o">-</span><span class="mf">7.94048925e-02</span> <span class="o">-</span><span class="mf">9.78496562e-02</span>
+  <span class="mf">2.62619509e-02</span> <span class="o">-</span><span class="mf">9.72878610e+00</span>  <span class="mf">9.78784009e+00</span> <span class="o">-</span><span class="mf">7.93780990e-02</span>
+ <span class="o">-</span><span class="mf">9.82843392e-02</span>  <span class="mf">2.57531237e-02</span>  <span class="mf">1.85051914e-02</span>  <span class="mf">9.20274041e-03</span>
+  <span class="mf">4.55362222e-03</span>  <span class="mf">4.46202076e-03</span>  <span class="mf">5.12673820e-03</span><span class="p">]</span>
+
+<span class="n">OUTPUT</span> <span class="p">(</span><span class="n">Recognized</span> <span class="n">Activity</span><span class="p">)</span> <span class="o">--&gt;</span> <span class="n">Lying</span>
+</pre></div>
+</div>
+<p>Saving the predictions for the new data in the same format as the original data.</p>
+<p>Our pipeline is able to predict the activity done by a human in each second of a given period of time during which their activity is recorded or monitored.
+Our model predicts the activity for block of signal observations with a temporal size of 1 second, what means 16 observations, since the signingl had a sample frequency of 16 Hz.</p>
+<p>But the original data has a periodicity of micro-seconds, specifically of 1/16 seconds. So, in the original format of the data, both signal and activity observations have a periodicity of 1/16 seconds.</p>
+<p>In order to set the ou ractivity predictions in the original format we have applied an expansion strategy, what means to extrapolate the block predictions to each signal observation belonging to the block. So that, if the predictions made by our pipeline for a block of signals is 3 (standing), the predictions for each signal observation of that block will be 3 (standing) as well.</p>
+<p>The expanded prediction were collected in the above cell and save in the dictionary <code class="docutils literal notranslate"><span class="pre">Y_new_hat_expanded</span></code>.</p>
+<p>Now we save the new data predictions in the original data format:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">HAR_new_database</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;__header__&#39;</span><span class="p">:</span> <span class="sa">b</span><span class="s1">&#39;MATLAB 5.0 MAT-file, Platform: MACI64, Created on: Thu May 16 17:05:45 2024&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;__version__&#39;</span><span class="p">:</span> <span class="s1">&#39;1.0&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;__globals__&#39;</span><span class="p">:</span> <span class="p">[],}</span>
+
+<span class="n">HAR_new_database</span><span class="p">[</span><span class="s1">&#39;database_test&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">HAR_database</span><span class="p">[</span><span class="s1">&#39;database_test&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">Y_new_hat_expanded</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Y_new_hat_expanded</span><span class="p">))])</span>
+
+<span class="c1"># Save the data to a MATLAB file</span>
+<span class="n">savemat</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:\Users\fscielzo\Documents\DataScience-GitHub\Human-Activity-Recognition\results\HAR_new_database.mat&#39;</span><span class="p">,</span> <span class="n">HAR_new_database</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">HAR_new_database</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;__header__&#39;: b&#39;MATLAB 5.0 MAT-file, Platform: MACI64, Created on: Thu May 16 17:05:45 2024&#39;,
+ &#39;__version__&#39;: &#39;1.0&#39;,
+ &#39;__globals__&#39;: [],
+ &#39;database_test&#39;: array([[array([[-0.06516976,  0.0188162 ,  0.02866381, ..., -0.65489655,
+                 -0.50250338, -0.59326978],
+                [ 0.38268988,  0.56415602,  0.53441247, ...,  3.26943227,
+                  3.36463946,  3.41075882],
+                [-0.2133753 ,  0.05981534,  0.10957474, ..., -0.04022603,
+                 -0.03728265, -0.01322535],
+                [ 0.18997728,  0.09126936,  0.06215636, ...,  0.11363941,
+                  0.09155738,  0.10077387],
+                [ 0.13234735,  0.12937823,  0.15868741, ...,  0.0875492 ,
+                  0.0407315 ,  0.06236758]])                             ,
+         array([3, 3, 3, ..., 4, 4, 4], dtype=uint8)],
+        [array([[-8.41940561e-01, -3.53763629e-02, -3.64637935e-01, ...,
+                 -4.72952179e-03, -1.60836501e-02,  3.36982094e-03],
+                [ 1.22111782e+00,  1.60088113e+00,  1.29588646e+00, ...,
+                  4.35754399e-01,  4.39480351e-01,  4.40240570e-01],
+                [-1.21402476e-01, -1.10038144e-01,  8.88294268e-03, ...,
+                 -9.24688287e-02, -8.35644004e-02, -8.25075701e-02],
+                [-4.60425168e-03, -4.84477458e-02, -9.75501446e-02, ...,
+                 -9.66818923e-02, -9.69218460e-02, -1.03798361e-01],
+                [ 3.65603734e-02,  1.50398948e-03, -1.90331775e-02, ...,
+                  5.09622920e-02,  4.32677086e-02,  4.06927248e-02]])   ,
+         array([3, 3, 3, ..., 3, 3, 3], dtype=uint8)]], dtype=object)}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Imbalance_problem.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><strong>Imbalance classification problem</strong></p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Conclusions.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><strong>Conclusions</strong></p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Fabio Scielzo Ortiz
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

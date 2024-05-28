@@ -1,0 +1,1496 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Inner Evaluation &#8212; Human Activity Recognition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Inner_Eval';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Human Activity Recognition - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Human Activity Recognition - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Human Activity Recognition
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Requirements.html"><strong>Requirements</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Data.html"><strong>Data</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Predictors_Response.html"><strong>Getting the response and predictors</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Imbalance_problem.html"><strong>Imbalance classification problem</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Predicting_new_data.html"><strong>Predicting new data</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Conclusions.html"><strong>Conclusions</strong></a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FInner_Eval.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Inner_Eval.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Inner Evaluation</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-outer-evaluation-method"><strong>Defining outer evaluation method</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#train-test-split"><strong>Train-Test Split</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pipelines-definition"><strong>Pipelines definition</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-inner-evaluation-method"><strong>Defining inner evaluation method</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#group-kfold-cross-validation"><strong>Group KFold Cross Validation</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-how-group-kfold-it-works"><strong>Understanding how Group KFold it works</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applying-the-inner-evaluation"><strong>Applying the inner evaluation</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grids-for-hpo"><strong>Grids for HPO</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hpo"><strong>HPO</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-the-best-pipeline"><strong>Selecting the best pipeline</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-the-best-pipeline"><strong>Defining the best pipeline</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="inner-evaluation">
+<h1><strong>Inner Evaluation</strong><a class="headerlink" href="#inner-evaluation" title="Link to this heading">#</a></h1>
+<section id="defining-outer-evaluation-method">
+<h2><strong>Defining outer evaluation method</strong><a class="headerlink" href="#defining-outer-evaluation-method" title="Link to this heading">#</a></h2>
+<section id="train-test-split">
+<h3><strong>Train-Test Split</strong><a class="headerlink" href="#train-test-split" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train_prop</span> <span class="o">=</span> <span class="mf">0.85</span>
+<span class="n">train_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">train_prop</span><span class="o">*</span><span class="n">n_individuals</span><span class="p">))</span>
+<span class="n">individuals_idx</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_individuals</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
+<span class="n">train_individuals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">individuals_idx</span><span class="p">,</span> <span class="n">train_size</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">test_individuals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">individuals_idx</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">train_individuals</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train_individuals</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0, 1, 3, 7, 4, 2, 5])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">train_individuals</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test_individuals</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([6])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">test_individuals</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1
+</pre></div>
+</div>
+</div>
+</div>
+<p>Building the training a testing lists <code class="docutils literal notranslate"><span class="pre">X_HAR</span></code> and <code class="docutils literal notranslate"><span class="pre">Y_HAR</span></code> defined above. The same as before but considering training and testing individuals separately.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_HAR_train</span> <span class="o">=</span> <span class="p">[</span><span class="n">HAR_database</span><span class="p">[</span><span class="s1">&#39;database_training&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">train_individuals</span><span class="p">]</span>
+<span class="n">Y_HAR_train</span> <span class="o">=</span> <span class="p">[</span><span class="n">HAR_database</span><span class="p">[</span><span class="s1">&#39;database_training&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">train_individuals</span><span class="p">]</span>
+
+<span class="n">X_HAR_test</span> <span class="o">=</span> <span class="p">[</span><span class="n">HAR_database</span><span class="p">[</span><span class="s1">&#39;database_training&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">test_individuals</span><span class="p">]</span>
+<span class="n">Y_HAR_test</span> <span class="o">=</span> <span class="p">[</span><span class="n">HAR_database</span><span class="p">[</span><span class="s1">&#39;database_training&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">test_individuals</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The training raw signals matrices list:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_HAR_train</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[array([[ 0.02417325,  0.01990478,  0.03474859, ...,  0.15302195,
+          0.16644707,  0.13097667],
+        [ 0.59441693,  0.60247182,  0.52582067, ...,  1.9454901 ,
+          2.00124793,  1.9890223 ],
+        [-0.02273627, -0.01287489, -0.0200163 , ...,  0.00468276,
+         -0.00249675, -0.00409452],
+        [ 0.11196179,  0.10379559,  0.10319319, ...,  0.11359097,
+          0.10181863,  0.10699662],
+        [ 0.06049883,  0.05515676,  0.05754055, ...,  0.04945955,
+          0.06203927,  0.06837131]]),
+ array([[-0.00614456,  0.09416632,  0.02556427, ...,  0.25846636,
+          0.26831659,  0.20932986],
+        [ 0.15163056,  0.27388097,  0.24967994, ...,  1.01129501,
+          1.00222655,  0.94156865],
+        [-0.02664025, -0.02277741, -0.00710769, ..., -0.02000222,
+         -0.0194218 , -0.01871779],
+        [-0.06663789, -0.08298231, -0.10177238, ..., -0.03517126,
+         -0.04314523, -0.04061162],
+        [ 0.24180082,  0.23684254,  0.24130693, ...,  0.24131465,
+          0.23414938,  0.24768909]]),
+ array([[ 0.05165687,  0.0650987 ,  0.01206259, ...,  0.36555553,
+          0.26527593,  0.34085031],
+        [ 0.47503658,  0.55140002,  0.55872758, ...,  1.42290122,
+          1.47060901,  1.4077758 ],
+        [ 0.13336841,  0.14036369,  0.13732303, ..., -0.07003494,
+         -0.07251649, -0.08866671],
+        [-0.0668408 , -0.07284105, -0.07443974, ...,  0.04751965,
+          0.04598145,  0.02407247],
+        [-0.16202343, -0.17998271, -0.20182392, ..., -0.21302053,
+         -0.23778129, -0.25154395]]),
+ array([[-0.32805745,  0.21316135,  0.07730691, ...,  0.58396364,
+          0.57248017,  0.58201507],
+        [ 1.10277907,  0.94095768,  0.89902692, ...,  1.84413557,
+          1.78376892,  1.81727352],
+        [-0.07742709, -0.07919505, -0.08941372, ..., -0.0736645 ,
+         -0.07339881, -0.08894767],
+        [-0.07629876, -0.10038392, -0.10460145, ..., -0.10174   ,
+         -0.08993586, -0.09181229],
+        [ 0.08240638,  0.06781832,  0.06951888, ...,  0.08128702,
+          0.05290613,  0.06649676]]),
+ array([[-0.08256422,  0.09021634,  0.20833665, ...,  0.37585218,
+          0.44981253,  0.40607189],
+        [ 0.53693504,  0.51929183,  0.63409263, ...,  0.83708194,
+          0.8103373 ,  0.7628346 ],
+        [ 0.05353819,  0.06431957,  0.11584413, ...,  0.09322134,
+          0.08182516,  0.08842621],
+        [ 0.02346034,  0.00344841,  0.05940777, ...,  0.02335576,
+          0.00431765,  0.02563387],
+        [-0.20278839, -0.22155068, -0.31653986, ..., -0.2931038 ,
+         -0.22910937, -0.18418657]]),
+ array([[ 0.01725369,  0.10293477,  0.10819053, ...,  0.71082619,
+          0.6902869 ,  0.70998775],
+        [ 0.68158121,  0.69141197,  0.79265585, ...,  0.84186193,
+          0.8235402 ,  0.832608  ],
+        [ 0.02417523,  0.04607177,  0.03142754, ...,  0.01269511,
+          0.00978901,  0.00814963],
+        [-0.02421756,  0.01368092, -0.01676861, ..., -0.05873524,
+         -0.04761158, -0.04766088],
+        [-0.26560293, -0.25658879, -0.26265961, ..., -0.11135749,
+         -0.10438768, -0.10152   ]]),
+ array([[-0.01256814,  1.075318  , -0.8095081 , ...,  0.04081069,
+          0.27214215,  0.14404119],
+        [ 1.29229521,  2.2547067 ,  2.32276895, ...,  0.88879623,
+          0.5977003 ,  0.69151805],
+        [-0.08342359, -0.23339688, -0.4362292 , ..., -0.05970851,
+         -0.10780427, -0.08269408],
+        [-0.02199893,  0.03932658,  0.17018843, ...,  0.01902898,
+          0.01298154, -0.01913849],
+        [-0.20233026, -0.12446777, -0.09608618, ...,  0.39916403,
+          0.32787735,  0.12517909]])]
+</pre></div>
+</div>
+</div>
+</div>
+<p>The testing raw signals matrices list:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_HAR_test</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[array([[ 0.06971024,  0.06352591,  0.07675852, ...,  0.27126796,
+          0.16124686,  0.19524657],
+        [ 0.39471738,  0.40493709,  0.43956792, ...,  1.27376087,
+          1.31028354,  1.25608528],
+        [-0.11659078, -0.11212781, -0.10438286, ..., -0.06724237,
+         -0.08350385, -0.06953112],
+        [ 0.06578621,  0.0653771 ,  0.06778922, ...,  0.09091548,
+          0.09260207,  0.09608102],
+        [ 0.06120889,  0.05849763,  0.05579525, ...,  0.06037664,
+          0.05157136,  0.03467293]])]
+</pre></div>
+</div>
+</div>
+</div>
+<p>The training raw activities vectors list:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Y_HAR_train</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[array([3, 3, 3, ..., 3, 3, 3], dtype=uint8),
+ array([3, 3, 3, ..., 3, 3, 3], dtype=uint8),
+ array([3, 3, 3, ..., 3, 3, 3], dtype=uint8),
+ array([3, 3, 3, ..., 3, 3, 3], dtype=uint8),
+ array([3, 3, 3, ..., 3, 3, 3], dtype=uint8),
+ array([3, 3, 3, ..., 3, 3, 3], dtype=uint8),
+ array([3, 3, 3, ..., 3, 3, 3], dtype=uint8)]
+</pre></div>
+</div>
+</div>
+</div>
+<p>The testing raw activities vectors list:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Y_HAR_test</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[array([3, 3, 3, ..., 3, 3, 3], dtype=uint8)]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Getting the training and testing predictor matrices and response vectors, using different statistics for feature extraction.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span> <span class="o">=</span> <span class="p">{},</span> <span class="p">{}</span>
+<span class="n">statistics_grid</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;mean-std&#39;</span><span class="p">,</span> <span class="s1">&#39;mean-median-std&#39;</span><span class="p">,</span> <span class="s1">&#39;mean-Q25-median-Q75-std&#39;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">stat</span> <span class="ow">in</span> <span class="n">statistics_grid</span><span class="p">:</span>
+    <span class="n">features_extraction</span> <span class="o">=</span> <span class="n">FeaturesExtractionHAR</span><span class="p">(</span><span class="n">blocks_size</span><span class="o">=</span><span class="n">sampling_freq</span><span class="p">,</span> <span class="n">statistics</span><span class="o">=</span><span class="n">stat</span><span class="p">)</span>
+    <span class="n">X_train</span><span class="p">[</span><span class="n">stat</span><span class="p">]</span> <span class="o">=</span> <span class="n">features_extraction</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X_HAR_train</span><span class="p">)</span>
+    <span class="n">X_test</span><span class="p">[</span><span class="n">stat</span><span class="p">]</span> <span class="o">=</span> <span class="n">features_extraction</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X_HAR_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Y_train</span><span class="p">,</span> <span class="n">Y_train_person</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">get_y_features_HAR</span><span class="p">(</span><span class="n">Y_HAR</span><span class="o">=</span><span class="n">Y_HAR_train</span><span class="p">,</span> <span class="n">blocks_size</span><span class="o">=</span><span class="n">sampling_freq</span><span class="p">)</span>
+<span class="n">groups_idx_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Y_train_person</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">Y_train_person</span><span class="o">.</span><span class="n">keys</span><span class="p">()])</span> 
+<span class="n">n_groups_train</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">groups_idx_train</span><span class="p">))</span>
+
+<span class="n">Y_test</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">get_y_features_HAR</span><span class="p">(</span><span class="n">Y_HAR</span><span class="o">=</span><span class="n">Y_HAR_test</span><span class="p">,</span> <span class="n">blocks_size</span><span class="o">=</span><span class="n">sampling_freq</span><span class="p">)</span>
+
+<span class="c1"># Codifying the response as {1:0, 2:1, 3:2, 4:3, 5:4} to avoid problems with certain models like XGBoost</span>
+<span class="n">label_encoder</span> <span class="o">=</span> <span class="n">LabelEncoder</span><span class="p">()</span>
+<span class="n">Y_train</span> <span class="o">=</span> <span class="n">label_encoder</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">Y_train</span><span class="p">)</span>
+<span class="n">Y_test</span> <span class="o">=</span> <span class="n">label_encoder</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">Y_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The training predictors matrix when using <code class="docutils literal notranslate"><span class="pre">mean</span></code> as statistic in the features extraction method:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 0.03365261,  0.68006947, -0.03290837,  0.10579754,  0.0847926 ],
+       [ 0.02045495,  0.73399091,  0.01038365,  0.10670424,  0.01609113],
+       [ 0.0369589 ,  0.51999355, -0.01568391,  0.10837755,  0.05546055],
+       ...,
+       [ 0.13476305,  0.76418404, -0.15004717,  0.01154583, -0.09196487],
+       [ 0.14829756,  0.6773758 , -0.13221036,  0.01025543, -0.06299339],
+       [ 0.15518139,  0.6740382 , -0.12196696, -0.00395498,  0.06063506]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(7708, 5)
+</pre></div>
+</div>
+</div>
+</div>
+<p>The training predictors matrix when using <code class="docutils literal notranslate"><span class="pre">mean</span></code> and <code class="docutils literal notranslate"><span class="pre">std</span></code> as statistic in the features extraction method:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">[</span><span class="s1">&#39;mean-std&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 0.03365261,  0.68006947, -0.03290837, ...,  0.03137443,
+         0.00674869,  0.07465121],
+       [ 0.02045495,  0.73399091,  0.01038365, ...,  0.02361024,
+         0.00949732,  0.05903554],
+       [ 0.0369589 ,  0.51999355, -0.01568391, ...,  0.01498785,
+         0.0037611 ,  0.02738979],
+       ...,
+       [ 0.13476305,  0.76418404, -0.15004717, ...,  0.01909474,
+         0.00966084,  0.03784605],
+       [ 0.14829756,  0.6773758 , -0.13221036, ...,  0.01038249,
+         0.008176  ,  0.01989335],
+       [ 0.15518139,  0.6740382 , -0.12196696, ...,  0.02631454,
+         0.02744556,  0.20666895]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">[</span><span class="s1">&#39;mean-std&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(7708, 10)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_HAR_test</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[array([[ 0.06971024,  0.06352591,  0.07675852, ...,  0.27126796,
+          0.16124686,  0.19524657],
+        [ 0.39471738,  0.40493709,  0.43956792, ...,  1.27376087,
+          1.31028354,  1.25608528],
+        [-0.11659078, -0.11212781, -0.10438286, ..., -0.06724237,
+         -0.08350385, -0.06953112],
+        [ 0.06578621,  0.0653771 ,  0.06778922, ...,  0.09091548,
+          0.09260207,  0.09608102],
+        [ 0.06120889,  0.05849763,  0.05579525, ...,  0.06037664,
+          0.05157136,  0.03467293]])]
+</pre></div>
+</div>
+</div>
+</div>
+<p>The training response vector:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Y_train</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([2, 2, 2, ..., 2, 2, 2], dtype=int64)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Y_train</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(7708,)
+</pre></div>
+</div>
+</div>
+</div>
+<p>The testing response vector:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Y_test</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([2, 2, 2, ..., 2, 2, 2], dtype=int64)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Y_test</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1128,)
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">groups_idx_train</span></code> is a vector indicating the to which group (individual) belongs each training observation. It is necessary to apply Group KFold.</p>
+<p>The idea is to associate observations with groups, so, the specific labels doesn’t matter.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">groups_idx_train</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0, 0, 0, ..., 6, 6, 6])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">groups_idx_train</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(7708,)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="pipelines-definition">
+<h2><strong>Pipelines definition</strong><a class="headerlink" href="#pipelines-definition" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pipelines</span> <span class="o">=</span> <span class="p">{}</span> 
+
+<span class="n">models</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;knn&#39;</span><span class="p">:</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">),</span> 
+          <span class="s1">&#39;trees&#39;</span><span class="p">:</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">123</span><span class="p">),</span> 
+          <span class="s1">&#39;extra_trees&#39;</span><span class="p">:</span> <span class="n">ExtraTreesClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">123</span><span class="p">),</span>
+          <span class="s1">&#39;RF&#39;</span><span class="p">:</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">123</span><span class="p">),</span> 
+          <span class="s1">&#39;HGB&#39;</span><span class="p">:</span> <span class="n">HistGradientBoostingClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">123</span><span class="p">),</span> 
+          <span class="s1">&#39;MLP&#39;</span><span class="p">:</span> <span class="n">MLPClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">123</span><span class="p">),</span>
+          <span class="s1">&#39;LinearSVM&#39;</span><span class="p">:</span> <span class="n">LinearSVC</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">123</span><span class="p">),</span>  
+          <span class="s1">&#39;XGB&#39;</span><span class="p">:</span> <span class="n">XGBClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">123</span><span class="p">),</span>
+          <span class="s1">&#39;Logistic&#39;</span><span class="p">:</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="s1">&#39;saga&#39;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">123</span><span class="p">),</span>
+          <span class="s1">&#39;LGBM&#39;</span><span class="p">:</span> <span class="n">LGBMClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">123</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=-</span><span class="mi">1</span><span class="p">),</span>
+          <span class="s1">&#39;SVM&#39;</span><span class="p">:</span> <span class="n">SVC</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="k">for</span> <span class="n">model_name</span><span class="p">,</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">models</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+
+    <span class="n">pipelines</span><span class="p">[</span><span class="n">model_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
+                <span class="p">(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">scaler</span><span class="p">(</span><span class="n">apply</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;standard&#39;</span><span class="p">)),</span>
+                <span class="p">(</span><span class="n">model_name</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span> 
+            <span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pipelines</span><span class="p">[</span><span class="s1">&#39;RF&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X_train</span><span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">Y_train</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>#sk-container-id-6 {color: black;}#sk-container-id-6 pre{padding: 0;}#sk-container-id-6 div.sk-toggleable {background-color: white;}#sk-container-id-6 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-6 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-6 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-6 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-6 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-6 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-6 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-6 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-6 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-6 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-6 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-6 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-6 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-6 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-6 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-6 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-6 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-6 div.sk-item {position: relative;z-index: 1;}#sk-container-id-6 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-6 div.sk-item::before, #sk-container-id-6 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-6 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-6 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-6 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-6 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-6 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-6 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-6 div.sk-label-container {text-align: center;}#sk-container-id-6 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-6 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-6" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;scaler&#x27;, scaler()),
+                (&#x27;RF&#x27;, RandomForestClassifier(random_state=123))])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-15" type="checkbox" ><label for="sk-estimator-id-15" class="sk-toggleable__label sk-toggleable__label-arrow">Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[(&#x27;scaler&#x27;, scaler()),
+                (&#x27;RF&#x27;, RandomForestClassifier(random_state=123))])</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-16" type="checkbox" ><label for="sk-estimator-id-16" class="sk-toggleable__label sk-toggleable__label-arrow">scaler</label><div class="sk-toggleable__content"><pre>scaler()</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-17" type="checkbox" ><label for="sk-estimator-id-17" class="sk-toggleable__label sk-toggleable__label-arrow">RandomForestClassifier</label><div class="sk-toggleable__content"><pre>RandomForestClassifier(random_state=123)</pre></div></div></div></div></div></div></div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pipelines</span><span class="p">[</span><span class="s1">&#39;RF&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X_test</span><span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([2, 2, 2, ..., 2, 2, 2], dtype=int64)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="defining-inner-evaluation-method">
+<h2><strong>Defining inner evaluation method</strong><a class="headerlink" href="#defining-inner-evaluation-method" title="Link to this heading">#</a></h2>
+<section id="group-kfold-cross-validation">
+<h3><strong>Group KFold Cross Validation</strong><a class="headerlink" href="#group-kfold-cross-validation" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">inner</span> <span class="o">=</span> <span class="n">GroupKFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="n">n_groups_train</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> 
+<span class="c1"># n_splits=n_groups_train - 1 implies that the number of groups (individuals) in the validating fold will be 1 or 2.</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="understanding-how-group-kfold-it-works">
+<h4><strong>Understanding how Group KFold it works</strong><a class="headerlink" href="#understanding-how-group-kfold-it-works" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">GroupKFold</span></code>: the <em>number of groups</em> in the <em>testing fold</em> in each iteration is in <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">(n_groups</span> <span class="pre">-</span> <span class="pre">n_splits</span> <span class="pre">+</span> <span class="pre">1)]</span></code> if <code class="docutils literal notranslate"><span class="pre">n_splits</span> <span class="pre">&lt;</span> <span class="pre">n_groups</span></code> and <code class="docutils literal notranslate"><span class="pre">n_groups</span></code> if <code class="docutils literal notranslate"><span class="pre">n_splits</span> <span class="pre">==</span> <span class="pre">n_groups.</span></code></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">2.2</span><span class="p">,</span> <span class="mf">2.4</span><span class="p">,</span> <span class="mf">2.3</span><span class="p">,</span> <span class="mf">4.55</span><span class="p">,</span> <span class="mf">5.8</span><span class="p">,</span> <span class="mf">8.8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">]</span>
+<span class="n">groups</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+
+<span class="n">gkf</span> <span class="o">=</span> <span class="n">GroupKFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span> 
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">test</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">gkf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="n">groups</span><span class="p">)):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Iter </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">  Idx train fold: </span><span class="si">{</span><span class="n">train</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">  Idx test fold: </span><span class="si">{</span><span class="n">test</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iter 0 
+  Idx train fold: [ 3  4  5  6  7  8  9 14] 
+  Idx test fold: [ 0  1  2 10 11 12 13 15]
+Iter 1 
+  Idx train fold: [ 0  1  2  3  4  5 10 11 12 13 14 15] 
+  Idx test fold: [6 7 8 9]
+Iter 2 
+  Idx train fold: [ 0  1  2  6  7  8  9 10 11 12 13 15] 
+  Idx test fold: [ 3  4  5 14]
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">GroupKFold</span></code> <strong>justification</strong>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cross_val_score</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X_train</span><span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">Y_train</span><span class="p">,</span> <span class="n">estimator</span><span class="o">=</span><span class="n">pipelines</span><span class="p">[</span><span class="s1">&#39;RF&#39;</span><span class="p">],</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;balanced_accuracy&#39;</span><span class="p">,</span> 
+                <span class="n">cv</span><span class="o">=</span><span class="n">inner</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="n">groups_idx_train</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.91539164, 0.7563062 , 0.71726369, 0.8839834 , 0.91722165,
+       0.65759934])
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="applying-the-inner-evaluation">
+<h2><strong>Applying the inner evaluation</strong><a class="headerlink" href="#applying-the-inner-evaluation" title="Link to this heading">#</a></h2>
+<section id="grids-for-hpo">
+<h3><strong>Grids for HPO</strong><a class="headerlink" href="#grids-for-hpo" title="Link to this heading">#</a></h3>
+<p>Defining the preprocessing grid.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">preprocessing_param_grid</span><span class="p">(</span><span class="n">trial</span><span class="p">):</span>
+
+    <span class="c1"># Fixed Grid</span>
+    <span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;scaler__apply&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_categorical</span><span class="p">(</span><span class="s1">&#39;scaler__apply&#39;</span><span class="p">,</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">])</span>
+    <span class="p">}</span>
+
+    <span class="c1"># Conditioned Grid</span>
+    <span class="c1">################################################################################################################ </span>
+    <span class="k">if</span> <span class="n">param_grid</span><span class="p">[</span><span class="s1">&#39;scaler__apply&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+
+        <span class="n">param_grid</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;scaler__method&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_categorical</span><span class="p">(</span><span class="s1">&#39;scaler__method&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;standard&#39;</span><span class="p">,</span> <span class="s1">&#39;min-max&#39;</span><span class="p">])})</span>
+
+    <span class="c1">################################################################################################################</span>
+
+    <span class="k">return</span> <span class="n">param_grid</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Defining grids for Machine Learning models.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">param_grid_knn</span><span class="p">(</span><span class="n">trial</span><span class="p">):</span>
+
+    <span class="n">param_grid</span> <span class="o">=</span> <span class="n">preprocessing_param_grid</span><span class="p">(</span><span class="n">trial</span><span class="p">)</span>
+
+    <span class="n">param_grid</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+        <span class="s1">&#39;knn__n_neighbors&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_int</span><span class="p">(</span><span class="s1">&#39;knn__n_neighbors&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+        <span class="s1">&#39;knn__metric&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_categorical</span><span class="p">(</span><span class="s1">&#39;knn__metric&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;cosine&#39;</span><span class="p">,</span> <span class="s1">&#39;minkowski&#39;</span><span class="p">,</span> <span class="s1">&#39;cityblock&#39;</span><span class="p">])</span>
+    <span class="p">})</span>
+
+    <span class="k">if</span> <span class="n">param_grid</span><span class="p">[</span><span class="s1">&#39;knn__metric&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;minkowski&#39;</span><span class="p">:</span>
+        <span class="n">param_grid</span><span class="p">[</span><span class="s1">&#39;knn__p&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_int</span><span class="p">(</span><span class="s1">&#39;knn__p&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">param_grid</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">param_grid_trees</span><span class="p">(</span><span class="n">trial</span><span class="p">):</span>
+
+    <span class="n">param_grid</span> <span class="o">=</span> <span class="n">preprocessing_param_grid</span><span class="p">(</span><span class="n">trial</span><span class="p">)</span>
+
+    <span class="n">param_grid</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+        <span class="s1">&#39;trees__max_depth&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_categorical</span><span class="p">(</span><span class="s1">&#39;trees__max_depth&#39;</span><span class="p">,</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">]),</span>
+        <span class="s1">&#39;trees__min_samples_split&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_int</span><span class="p">(</span><span class="s1">&#39;trees__min_samples_split&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+        <span class="s1">&#39;trees__min_samples_leaf&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_int</span><span class="p">(</span><span class="s1">&#39;trees__min_samples_leaf&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+        <span class="s1">&#39;trees__splitter&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_categorical</span><span class="p">(</span><span class="s1">&#39;trees__splitter&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="s1">&#39;random&#39;</span><span class="p">]),</span>
+        <span class="s1">&#39;trees__criterion&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_categorical</span><span class="p">(</span><span class="s1">&#39;trees__criterion&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;log_loss&#39;</span><span class="p">,</span> <span class="s1">&#39;gini&#39;</span><span class="p">,</span> <span class="s1">&#39;entropy&#39;</span><span class="p">]),</span>
+        <span class="s1">&#39;trees__class_weight&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_categorical</span><span class="p">(</span><span class="s1">&#39;trees__class_weight&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;balanced&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">])</span>
+    <span class="p">})</span>
+
+    <span class="k">return</span> <span class="n">param_grid</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">param_grid_extra_trees</span><span class="p">(</span><span class="n">trial</span><span class="p">):</span>
+
+    <span class="n">param_grid</span> <span class="o">=</span> <span class="n">preprocessing_param_grid</span><span class="p">(</span><span class="n">trial</span><span class="p">)</span>
+
+    <span class="n">param_grid</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+        <span class="s1">&#39;extra_trees__n_estimators&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_categorical</span><span class="p">(</span><span class="s1">&#39;extra_trees__n_estimators&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">120</span><span class="p">]),</span>
+        <span class="s1">&#39;extra_trees__max_depth&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_categorical</span><span class="p">(</span><span class="s1">&#39;extra_trees__max_depth&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">]),</span>
+        <span class="s1">&#39;extra_trees__min_samples_split&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_int</span><span class="p">(</span><span class="s1">&#39;extra_trees__min_samples_split&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+        <span class="s1">&#39;extra_trees__min_samples_leaf&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_int</span><span class="p">(</span><span class="s1">&#39;extra_trees__min_samples_leaf&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+        <span class="s1">&#39;extra_trees__criterion&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_categorical</span><span class="p">(</span><span class="s1">&#39;extra_trees__criterion&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;gini&#39;</span><span class="p">]),</span>
+        <span class="s1">&#39;extra_trees__max_features&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_categorical</span><span class="p">(</span><span class="s1">&#39;extra_trees__max_features&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]),</span>
+        <span class="s1">&#39;extra_trees__class_weight&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_categorical</span><span class="p">(</span><span class="s1">&#39;extra_trees__class_weight&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;balanced&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">])</span>
+    <span class="p">})</span>
+    
+    <span class="k">return</span> <span class="n">param_grid</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">param_grid_HGB</span><span class="p">(</span><span class="n">trial</span><span class="p">):</span>
+
+    <span class="n">param_grid</span> <span class="o">=</span> <span class="n">preprocessing_param_grid</span><span class="p">(</span><span class="n">trial</span><span class="p">)</span>
+
+    <span class="n">param_grid</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+        <span class="s1">&#39;HGB__max_depth&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_categorical</span><span class="p">(</span><span class="s1">&#39;HGB__max_depth&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">50</span><span class="p">]),</span>
+        <span class="s1">&#39;HGB__l2_regularization&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_float</span><span class="p">(</span><span class="s1">&#39;HGB__l2_regularization&#39;</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="s1">&#39;HGB__max_iter&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_categorical</span><span class="p">(</span><span class="s1">&#39;HGB__max_iter&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">130</span><span class="p">,</span> <span class="mi">150</span><span class="p">])</span>
+    <span class="p">})</span>
+
+    <span class="k">return</span> <span class="n">param_grid</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">param_grid_XGB</span><span class="p">(</span><span class="n">trial</span><span class="p">):</span>
+
+    <span class="n">param_grid</span> <span class="o">=</span> <span class="n">preprocessing_param_grid</span><span class="p">(</span><span class="n">trial</span><span class="p">)</span>
+
+    <span class="n">param_grid</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+        <span class="s1">&#39;XGB__max_depth&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_categorical</span><span class="p">(</span><span class="s1">&#39;XGB__max_depth&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">100</span><span class="p">]),</span>
+        <span class="s1">&#39;XGB__reg_lambda&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_float</span><span class="p">(</span><span class="s1">&#39;XGB__reg_lambda&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+        <span class="s1">&#39;XGB__n_estimators&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_categorical</span><span class="p">(</span><span class="s1">&#39;XGB__n_estimators&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">130</span><span class="p">,</span> <span class="mi">150</span><span class="p">]),</span>
+        <span class="s1">&#39;XGB__eta&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_float</span><span class="p">(</span><span class="s1">&#39;XGB__eta&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+        <span class="s1">&#39;XGB__alpha&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_float</span><span class="p">(</span><span class="s1">&#39;XGB__alpha&#39;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="p">})</span>
+
+    <span class="k">return</span> <span class="n">param_grid</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">param_grid_RF</span><span class="p">(</span><span class="n">trial</span><span class="p">):</span>
+
+    <span class="n">param_grid</span> <span class="o">=</span> <span class="n">preprocessing_param_grid</span><span class="p">(</span><span class="n">trial</span><span class="p">)</span>
+
+    <span class="n">param_grid</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+        <span class="s1">&#39;RF__n_estimators&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_categorical</span><span class="p">(</span><span class="s1">&#39;RF__n_estimators&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">250</span><span class="p">]),</span>
+        <span class="s1">&#39;RF__max_depth&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_categorical</span><span class="p">(</span><span class="s1">&#39;RF__max_depth&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">]),</span>
+        <span class="s1">&#39;RF__min_samples_split&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_int</span><span class="p">(</span><span class="s1">&#39;RF__min_samples_split&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+        <span class="s1">&#39;RF__min_samples_leaf&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_int</span><span class="p">(</span><span class="s1">&#39;RF__min_samples_leaf&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+        <span class="s1">&#39;RF__criterion&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_categorical</span><span class="p">(</span><span class="s1">&#39;RF__criterion&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;gini&#39;</span><span class="p">,</span> <span class="s1">&#39;entropy&#39;</span><span class="p">]),</span>
+        <span class="s1">&#39;RF__class_weight&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_categorical</span><span class="p">(</span><span class="s1">&#39;RF__class_weight&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;balanced&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">])</span>
+    <span class="p">})</span>
+    
+    <span class="k">return</span> <span class="n">param_grid</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">param_grid_LinearSVM</span><span class="p">(</span><span class="n">trial</span><span class="p">):</span>
+
+    <span class="n">param_grid</span> <span class="o">=</span> <span class="n">preprocessing_param_grid</span><span class="p">(</span><span class="n">trial</span><span class="p">)</span>
+
+    <span class="n">param_grid</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+        <span class="s1">&#39;LinearSVM__C&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_float</span><span class="p">(</span><span class="s1">&#39;SVM__C&#39;</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="s1">&#39;LinearSVM__class_weight&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_categorical</span><span class="p">(</span><span class="s1">&#39;LinearSVM__class_weight&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;balanced&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">])</span>
+    <span class="p">})</span>
+
+    <span class="k">return</span> <span class="n">param_grid</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">param_grid_MLP</span><span class="p">(</span><span class="n">trial</span><span class="p">):</span>
+
+    <span class="n">param_grid</span> <span class="o">=</span> <span class="n">preprocessing_param_grid</span><span class="p">(</span><span class="n">trial</span><span class="p">)</span>
+
+    <span class="n">param_grid</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+        <span class="s1">&#39;MLP__learning_rate_init&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_float</span><span class="p">(</span><span class="s1">&#39;MLP__learning_rate_init&#39;</span><span class="p">,</span> <span class="mf">0.0001</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="s1">&#39;MLP__alpha&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_float</span><span class="p">(</span><span class="s1">&#39;MLP__alpha&#39;</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="p">})</span>
+
+    <span class="k">return</span> <span class="n">param_grid</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">param_grid_Logistic</span><span class="p">(</span><span class="n">trial</span><span class="p">):</span>
+
+    <span class="n">param_grid</span> <span class="o">=</span> <span class="n">preprocessing_param_grid</span><span class="p">(</span><span class="n">trial</span><span class="p">)</span>
+
+    <span class="n">param_grid</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+        <span class="s1">&#39;Logistic__penalty&#39;</span><span class="p">:</span>  <span class="n">trial</span><span class="o">.</span><span class="n">suggest_categorical</span><span class="p">(</span><span class="s1">&#39;Logistic__penalty&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;l1&#39;</span><span class="p">,</span> <span class="s1">&#39;l2&#39;</span><span class="p">,</span> <span class="s1">&#39;elasticnet&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">]),</span>
+        <span class="s1">&#39;Logistic__C&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_float</span><span class="p">(</span><span class="s1">&#39;Logistic__C&#39;</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="s1">&#39;Logistic__class_weight&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_categorical</span><span class="p">(</span><span class="s1">&#39;Logistic__class_weight&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;balanced&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">])</span>
+    <span class="p">})</span>
+
+    <span class="k">if</span> <span class="n">param_grid</span><span class="p">[</span><span class="s1">&#39;Logistic__penalty&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;elasticnet&#39;</span><span class="p">:</span>
+        <span class="n">param_grid</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;Logistic__l1_ratio&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_float</span><span class="p">(</span><span class="s1">&#39;Logistic__l1_ratio&#39;</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">)})</span>
+
+    <span class="k">return</span> <span class="n">param_grid</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">param_grid_SVM</span><span class="p">(</span><span class="n">trial</span><span class="p">):</span>
+
+    <span class="n">param_grid</span> <span class="o">=</span> <span class="n">preprocessing_param_grid</span><span class="p">(</span><span class="n">trial</span><span class="p">)</span>
+
+    <span class="n">param_grid</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+        <span class="s1">&#39;SVM__C&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_float</span><span class="p">(</span><span class="s1">&#39;SVM__C&#39;</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="s1">&#39;SVM__kernel&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_categorical</span><span class="p">(</span><span class="s1">&#39;SVM__kernel&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;poly&#39;</span><span class="p">,</span> <span class="s1">&#39;rbf&#39;</span><span class="p">,</span> <span class="s1">&#39;sigmoid&#39;</span><span class="p">]),</span>
+        <span class="s1">&#39;SVM__class_weight&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_categorical</span><span class="p">(</span><span class="s1">&#39;SVM__class_weight&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;balanced&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">])</span>
+    <span class="p">})</span>
+
+    <span class="k">if</span> <span class="n">param_grid</span><span class="p">[</span><span class="s1">&#39;SVM__kernel&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;poly&#39;</span><span class="p">:</span>
+
+        <span class="n">param_grid</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+            <span class="s1">&#39;SVM__degree&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_int</span><span class="p">(</span><span class="s1">&#39;SVM__degree&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+        <span class="p">})</span>
+
+    <span class="k">return</span> <span class="n">param_grid</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">param_grid_LGBM</span><span class="p">(</span><span class="n">trial</span><span class="p">):</span>
+
+    <span class="n">param_grid</span> <span class="o">=</span> <span class="n">preprocessing_param_grid</span><span class="p">(</span><span class="n">trial</span><span class="p">)</span>
+
+    <span class="n">param_grid</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+        <span class="s1">&#39;LGBM__max_depth&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_int</span><span class="p">(</span><span class="s1">&#39;LGBM__max_depth&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span>
+        <span class="s1">&#39;LGBM__num_leaves&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_int</span><span class="p">(</span><span class="s1">&#39;LGBM__num_leaves&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span>
+        <span class="s1">&#39;LGBM__n_estimators&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_categorical</span><span class="p">(</span><span class="s1">&#39;LGBM__n_estimators&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">250</span><span class="p">,</span> <span class="mi">300</span><span class="p">]),</span>
+        <span class="s1">&#39;LGBM__learning_rate&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_float</span><span class="p">(</span><span class="s1">&#39;LGBM__learning_rate&#39;</span><span class="p">,</span> <span class="mf">0.0001</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="s1">&#39;LGBM__lambda_l1&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_float</span><span class="p">(</span><span class="s1">&#39;LGBM__lambda_l1&#39;</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="s1">&#39;LGBM__lambda_l2&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_float</span><span class="p">(</span><span class="s1">&#39;LGBM__lambda_l2&#39;</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="s1">&#39;LGBM__min_split_gain&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_float</span><span class="p">(</span><span class="s1">&#39;LGBM__min_split_gain&#39;</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="s1">&#39;LGBM__min_child_weight&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_int</span><span class="p">(</span><span class="s1">&#39;LGBM__min_child_weight&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">60</span><span class="p">),</span>
+        <span class="s1">&#39;LGBM__feature_fraction&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_float</span><span class="p">(</span><span class="s1">&#39;LGBM__feature_fraction&#39;</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+    <span class="p">})</span>
+
+    <span class="k">return</span> <span class="n">param_grid</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="hpo">
+<h3><strong>HPO</strong><a class="headerlink" href="#hpo" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">inner_score</span><span class="p">,</span> <span class="n">best_params</span><span class="p">,</span> <span class="n">inner_results</span> <span class="o">=</span> <span class="p">{</span><span class="n">model_name</span><span class="p">:</span> <span class="p">{}</span> <span class="k">for</span> <span class="n">model_name</span> <span class="ow">in</span> <span class="n">models</span><span class="o">.</span><span class="n">keys</span><span class="p">()},</span> <span class="p">{</span><span class="n">model_name</span><span class="p">:</span> <span class="p">{}</span> <span class="k">for</span> <span class="n">model_name</span> <span class="ow">in</span> <span class="n">models</span><span class="o">.</span><span class="n">keys</span><span class="p">()},</span> <span class="p">{</span><span class="n">model_name</span><span class="p">:</span> <span class="p">{}</span> <span class="k">for</span> <span class="n">model_name</span> <span class="ow">in</span> <span class="n">models</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">model_name</span> <span class="ow">in</span> <span class="n">models</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;=====================================</span><span class="se">\n</span><span class="s1"> Model: </span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s1"> </span><span class="se">\n</span><span class="s1">=====================================&#39;</span><span class="p">)</span>
+
+    <span class="n">param_grid</span> <span class="o">=</span> <span class="nb">globals</span><span class="p">()[</span><span class="sa">f</span><span class="s1">&#39;param_grid_</span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span>
+
+    <span class="n">simple_eval</span> <span class="o">=</span> <span class="n">SimpleEvaluation</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="n">pipelines</span><span class="p">[</span><span class="n">model_name</span><span class="p">],</span>  
+                                <span class="n">cv</span><span class="o">=</span><span class="n">inner</span><span class="p">,</span> 
+                                <span class="n">groups</span><span class="o">=</span><span class="n">groups_idx_train</span><span class="p">,</span>
+                                <span class="n">param_grid</span><span class="o">=</span><span class="n">param_grid</span><span class="p">,</span>
+                                <span class="n">search_method</span><span class="o">=</span><span class="s1">&#39;optuna&#39;</span><span class="p">,</span>
+                                <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;balanced_accuracy&#39;</span><span class="p">,</span> 
+                                <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;maximize&#39;</span><span class="p">,</span> 
+                                <span class="n">n_trials</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> 
+                                <span class="n">random_state</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">stat</span> <span class="ow">in</span> <span class="n">statistics_grid</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;---------------------------------------------------</span><span class="se">\n</span><span class="s1"> Statistics for feature extraction method: </span><span class="si">{</span><span class="n">stat</span><span class="si">}</span><span class="s1"> </span><span class="se">\n</span><span class="s1">---------------------------------------------------&#39;</span><span class="p">)</span>
+
+        <span class="n">simple_eval</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X_train</span><span class="p">[</span><span class="n">stat</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">Y_train</span><span class="p">)</span>
+
+        <span class="n">inner_score</span><span class="p">[</span><span class="n">model_name</span><span class="p">][</span><span class="n">stat</span><span class="p">]</span> <span class="o">=</span> <span class="n">simple_eval</span><span class="o">.</span><span class="n">inner_score</span>
+        <span class="n">best_params</span><span class="p">[</span><span class="n">model_name</span><span class="p">][</span><span class="n">stat</span><span class="p">]</span> <span class="o">=</span> <span class="n">simple_eval</span><span class="o">.</span><span class="n">inner_best_params</span>
+        <span class="n">inner_results</span><span class="p">[</span><span class="n">model_name</span><span class="p">][</span><span class="n">stat</span><span class="p">]</span> <span class="o">=</span> <span class="n">simple_eval</span><span class="o">.</span><span class="n">inner_results</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><strong>Processing the inner results:</strong></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">model_name</span> <span class="ow">in</span> <span class="n">models</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+
+    <span class="n">best_stats</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">inner_score</span><span class="p">[</span><span class="n">model_name</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">inner_score</span><span class="p">[</span><span class="n">model_name</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">())))]</span>
+    <span class="n">best_params</span><span class="p">[</span><span class="n">model_name</span><span class="p">][</span><span class="n">best_stats</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;features_extraction__statistics&#39;</span><span class="p">:</span> <span class="n">best_stats</span><span class="p">})</span>
+    <span class="n">inner_score</span><span class="p">[</span><span class="n">model_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">inner_score</span><span class="p">[</span><span class="n">model_name</span><span class="p">][</span><span class="n">best_stats</span><span class="p">]</span>
+    <span class="n">best_params</span><span class="p">[</span><span class="n">model_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">best_params</span><span class="p">[</span><span class="n">model_name</span><span class="p">][</span><span class="n">best_stats</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><strong>Saving the inner results:</strong></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">with open(r&#39;C:\Users\fscielzo\Documents\DataScience-GitHub\Human-Activity-Recognition\results\inner_score.pkl&#39;, &#39;wb&#39;) as file:</span>
+<span class="sd">    pickle.dump(inner_score, file)</span>
+<span class="sd">with open(r&#39;C:\Users\fscielzo\Documents\DataScience-GitHub\Human-Activity-Recognition\results\best_params.pkl&#39;, &#39;wb&#39;) as file:</span>
+<span class="sd">    pickle.dump(best_params, file)</span>
+<span class="sd">with open(r&#39;C:\Users\fscielzo\Documents\DataScience-GitHub\Human-Activity-Recognition\results\inner_results.pkl&#39;, &#39;wb&#39;) as file:</span>
+<span class="sd">    pickle.dump(inner_results, file)</span>
+<span class="sd">&#39;&#39;&#39;</span>    
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="selecting-the-best-pipeline">
+<h3><strong>Selecting the best pipeline</strong><a class="headerlink" href="#selecting-the-best-pipeline" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Opening the inner results</strong></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:\Users\fscielzo\Documents\DataScience-GitHub\Human-Activity-Recognition\results\inner_score.pkl&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+    <span class="n">inner_score</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:\Users\fscielzo\Documents\DataScience-GitHub\Human-Activity-Recognition\results\best_params.pkl&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+    <span class="n">best_params</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:\Users\fscielzo\Documents\DataScience-GitHub\Human-Activity-Recognition\results\inner_results.pkl&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+    <span class="n">inner_results</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Processing the results</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">inner_score_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">inner_score</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+<span class="n">pipeline_names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">inner_score</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="n">best_pipeline_name</span> <span class="o">=</span> <span class="n">pipeline_names</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">inner_score_values</span><span class="p">)]</span>
+<span class="n">score_best_pipeline</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">inner_score_values</span><span class="p">)</span>
+
+<span class="n">combined_models_score</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">pipeline_names</span><span class="p">,</span> <span class="n">inner_score_values</span><span class="p">))</span>
+<span class="n">sorted_combined_models_score</span><span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">combined_models_score</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># Sort from greater to lower</span>
+<span class="n">sorted_models</span><span class="p">,</span> <span class="n">sorted_scores</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">sorted_combined_models_score</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">sorted_models</span><span class="p">),</span> <span class="n">x</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">sorted_scores</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="n">best_pipeline_name</span><span class="p">],</span> <span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="n">score_best_pipeline</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Pipelines&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Accuracy&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">inner_score_values</span><span class="p">),</span> <span class="mi">6</span><span class="p">),</span><span class="mi">3</span><span class="p">))</span> 
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span> 
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)</span>    
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Pipelines Selection - Group KFold CV&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_yticklabels</span><span class="p">():</span>
+    <span class="c1">#label.set_weight(&#39;bold&#39;)</span>
+    <span class="n">label</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s1">&#39;black&#39;</span><span class="p">)</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The best pipeline among all the </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">sorted_scores</span><span class="p">)</span><span class="si">}</span><span class="s1"> alternatives compared in this final stage, according to the inner evaluation, is: </span><span class="si">{</span><span class="n">best_pipeline</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Accuracy of the best pipeline: &#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">score_best_pipeline</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">The best pipeline hyper-parameters are: &#39;</span><span class="p">,</span> <span class="n">best_params</span><span class="p">[</span><span class="n">best_pipeline_name</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/6fc347d11fe8a67e24d57ec4f9554238abb557eef0a656417c3bcbb954c79df7.png" src="_images/6fc347d11fe8a67e24d57ec4f9554238abb557eef0a656417c3bcbb954c79df7.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The best pipeline among all the 11 alternatives compared in this final stage, according to the inner evaluation, is: LGBM
+Accuracy of the best pipeline:  0.949
+
+The best pipeline hyper-parameters are:  {&#39;scaler__apply&#39;: False, &#39;LGBM__max_depth&#39;: 23, &#39;LGBM__num_leaves&#39;: 71, &#39;LGBM__n_estimators&#39;: 120, &#39;LGBM__learning_rate&#39;: 0.005320673587684961, &#39;LGBM__lambda_l1&#39;: 0.008840401399518267, &#39;LGBM__lambda_l2&#39;: 0.002389872230017185, &#39;LGBM__min_split_gain&#39;: 0.0015901799134300236, &#39;LGBM__min_child_weight&#39;: 22, &#39;LGBM__feature_fraction&#39;: 0.75, &#39;features_extraction__statistics&#39;: &#39;mean-median-std&#39;}
+</pre></div>
+</div>
+</div>
+</div>
+<section id="defining-the-best-pipeline">
+<h4><strong>Defining the best pipeline</strong><a class="headerlink" href="#defining-the-best-pipeline" title="Link to this heading">#</a></h4>
+<p>Defining a general pipeline:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">final_pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
+                    <span class="p">(</span><span class="s1">&#39;features_extraction&#39;</span><span class="p">,</span> <span class="n">FeaturesExtractionHAR</span><span class="p">(</span><span class="n">blocks_size</span><span class="o">=</span><span class="n">sampling_freq</span><span class="p">,</span> <span class="n">statistics</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">)),</span>
+                    <span class="p">(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">scaler</span><span class="p">(</span><span class="n">apply</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;standard&#39;</span><span class="p">)),</span>
+                    <span class="p">(</span><span class="n">best_pipeline_name</span><span class="p">,</span> <span class="n">models</span><span class="p">[</span><span class="n">best_pipeline_name</span><span class="p">])</span> 
+                <span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Setting the best parameter to the defined pipeline:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">final_pipeline</span><span class="o">.</span><span class="n">set_params</span><span class="p">(</span><span class="o">**</span><span class="n">best_params</span><span class="p">[</span><span class="n">best_pipeline_name</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>#sk-container-id-7 {color: black;}#sk-container-id-7 pre{padding: 0;}#sk-container-id-7 div.sk-toggleable {background-color: white;}#sk-container-id-7 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-7 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-7 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-7 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-7 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-7 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-7 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-7 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-7 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-7 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-7 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-7 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-7 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-7 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-7 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-7 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-7 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-7 div.sk-item {position: relative;z-index: 1;}#sk-container-id-7 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-7 div.sk-item::before, #sk-container-id-7 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-7 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-7 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-7 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-7 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-7 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-7 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-7 div.sk-label-container {text-align: center;}#sk-container-id-7 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-7 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-7" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;features_extraction&#x27;,
+                 FeaturesExtractionHAR(blocks_size=16,
+                                       statistics=&#x27;mean-median-std&#x27;)),
+                (&#x27;scaler&#x27;, scaler()),
+                (&#x27;LGBM&#x27;,
+                 LGBMClassifier(feature_fraction=0.75,
+                                lambda_l1=0.008840401399518267,
+                                lambda_l2=0.002389872230017185,
+                                learning_rate=0.005320673587684961,
+                                max_depth=23, min_child_weight=22,
+                                min_split_gain=0.0015901799134300236,
+                                n_estimators=120, num_leaves=71,
+                                random_state=123, verbose=-1))])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-18" type="checkbox" ><label for="sk-estimator-id-18" class="sk-toggleable__label sk-toggleable__label-arrow">Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[(&#x27;features_extraction&#x27;,
+                 FeaturesExtractionHAR(blocks_size=16,
+                                       statistics=&#x27;mean-median-std&#x27;)),
+                (&#x27;scaler&#x27;, scaler()),
+                (&#x27;LGBM&#x27;,
+                 LGBMClassifier(feature_fraction=0.75,
+                                lambda_l1=0.008840401399518267,
+                                lambda_l2=0.002389872230017185,
+                                learning_rate=0.005320673587684961,
+                                max_depth=23, min_child_weight=22,
+                                min_split_gain=0.0015901799134300236,
+                                n_estimators=120, num_leaves=71,
+                                random_state=123, verbose=-1))])</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-19" type="checkbox" ><label for="sk-estimator-id-19" class="sk-toggleable__label sk-toggleable__label-arrow">FeaturesExtractionHAR</label><div class="sk-toggleable__content"><pre>FeaturesExtractionHAR(blocks_size=16, statistics=&#x27;mean-median-std&#x27;)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-20" type="checkbox" ><label for="sk-estimator-id-20" class="sk-toggleable__label sk-toggleable__label-arrow">scaler</label><div class="sk-toggleable__content"><pre>scaler()</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-21" type="checkbox" ><label for="sk-estimator-id-21" class="sk-toggleable__label sk-toggleable__label-arrow">LGBMClassifier</label><div class="sk-toggleable__content"><pre>LGBMClassifier(feature_fraction=0.75, lambda_l1=0.008840401399518267,
+               lambda_l2=0.002389872230017185,
+               learning_rate=0.005320673587684961, max_depth=23,
+               min_child_weight=22, min_split_gain=0.0015901799134300236,
+               n_estimators=120, num_leaves=71, random_state=123, verbose=-1)</pre></div></div></div></div></div></div></div></div></div>
+</div>
+</section>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-outer-evaluation-method"><strong>Defining outer evaluation method</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#train-test-split"><strong>Train-Test Split</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pipelines-definition"><strong>Pipelines definition</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-inner-evaluation-method"><strong>Defining inner evaluation method</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#group-kfold-cross-validation"><strong>Group KFold Cross Validation</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-how-group-kfold-it-works"><strong>Understanding how Group KFold it works</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applying-the-inner-evaluation"><strong>Applying the inner evaluation</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grids-for-hpo"><strong>Grids for HPO</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hpo"><strong>HPO</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-the-best-pipeline"><strong>Selecting the best pipeline</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-the-best-pipeline"><strong>Defining the best pipeline</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Fabio Scielzo Ortiz
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
