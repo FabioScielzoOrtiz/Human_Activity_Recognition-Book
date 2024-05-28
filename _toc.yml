@@ -8,7 +8,7 @@ chapters:
 - file: Data
 - file: Predictors_Response
 - file: Imbalance_problem
-- file: Inner_eval
-- file: Outer_eval
+- file: Inner_Eval
+- file: Outer_Eval
 - file: Predicting_new_data
 - file: Conclusions

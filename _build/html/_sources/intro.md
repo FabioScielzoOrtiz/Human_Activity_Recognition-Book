@@ -16,6 +16,7 @@ The considered activities to be recognized are the following:
 4. Sitting
 5. Lying
 
+
 >**Project goal:** recognize human activity *per second*. That is, given some signals of a human recorded during certain period of time (like 15 minutes), recognize the activity that person was doing in each second of that period, considering a set of 5 possible of activities: *running, walking, standing, sitting, lying*. The system is suppose to be capable of processing data in real time, and therefore, recognize human activity in real time.
 
 
